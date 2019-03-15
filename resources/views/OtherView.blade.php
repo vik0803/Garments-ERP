@@ -1,4 +1,4 @@
-@extends('layoutsView.masterApp')
+@extends('layouts.masterApp')
 
 @section('title','Inventory')
 
