@@ -1,6 +1,6 @@
 @extends('layoutsView.masterApp')
 
-@section('title','Home')
+@section('title','Garments ERP')
 
 @section('content')
   <section class="service-area section-gap" id="service">

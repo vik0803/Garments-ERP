@@ -49,26 +49,11 @@
                 <li><a href="#">Merchandising</a></li>
                 <li><a href="#">Planning</a></li>
                 <li><a href="#">Commercial</a> </li>
-                <li class="menu-has-children">
-                  <a href="/path">Inventory</a><i class="fas fa-caret-down"></i>
-                  <ul >
-                    <li><router-link to="/purchase-requisition">Purchase Requisition</router-link></li>
-                    <li><router-link to="/quotation-evaluation">Quotation Evaluation</router-link></li>
-                    <li><router-link to="/gate-entry">Gate Entry</router-link></li>
-                    <li><router-link to="/yarn-store">Yarn Store</router-link></li>
-                    <li><router-link to="/grey-fabric-store">Grey Fabric Store</router-link></li>
-                    <li><router-link to="/finish-fabric-store">Finish Fabric Store</router-link></li>
-                    <li><router-link to="/dyes-and-chemical-store">Dyes and Chemical Store</router-link></li>
-                    <li><router-link to="/trims-store">Trims Store</router-link></li>
-                    <li><router-link to="/general-store">General Store</router-link></li>
-                    <li><router-link to="/report">Report</router-link></li>
-                  </ul>
-                </li>
+                <li><a href="{{ route('inventory') }}">Inventory</a></li>
                 <li><a href="#">Production</a></li>
                 <li><a href="#">Accounting</a></li>
               </ul>
             </nav>
-
           </div>
         </div>
 

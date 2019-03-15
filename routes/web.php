@@ -13,7 +13,7 @@
 
 Route::get('/','ViewController@index');
 
-Route::get('/{path}','ViewController@Inventory');
+Route::get('inventory','ViewController@Inventory')->name('inventory');
 
 Route::get('/{path?}', function () {
 	return view('OtherView');
