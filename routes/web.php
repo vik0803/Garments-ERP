@@ -15,6 +15,10 @@ Route::get('/','ViewController@index');
 
 Route::get('inventory','ViewController@Inventory')->name('inventory');
 
-Route::get('/{path?}', function () {
-	return view('OtherView');
-})->where('path','[A-Za-z]+');
+// Route::get('/{path?}', function () {
+// 	return view('OtherView');
+// })->where('path','[A-Za-z]+');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
