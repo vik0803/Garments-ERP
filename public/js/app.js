@@ -58229,7 +58229,7 @@ var render = function() {
                   _vm._v("Users Table")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "card-tools" }, [
+                _c("div", { staticClass: "card-tool" }, [
                   _c(
                     "button",
                     {
