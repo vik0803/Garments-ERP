@@ -67,7 +67,6 @@
                   <option value="">Select User Role</option>
                   <option value="admin">Admin</option>
                   <option value="user">Standard User</option>
-                  <option value="author">Author</option>
                 </select>
                 <div v-if="errors.type" class="invalid-feedback">{{ errors.type[0] }}</div>
               </div>

@@ -5,9 +5,10 @@
     <div class="col-2">
       <div class="nav flex-column nav-pills text-left" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <a class="nav-link active" href="{{ route('home') }}"><i class="fas fa-home"></i> Home</a>
-        <router-link to="/users" class="nav-link" data-toggle="pill"><i class="fas fa-users nav-icon"></i> Usres</router-link>
+        @can ('isAdmin')
+          <router-link to="/users" class="nav-link" data-toggle="pill"><i class="fas fa-users nav-icon"></i> Usres</router-link>
+        @endcan
         <router-link to="/quotation-evaluation" class="nav-link" data-toggle="pill">Quotation Evaluation</router-link>
-
       </div>
     </div>
     <div class="col-10" >
