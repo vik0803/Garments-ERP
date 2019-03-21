@@ -27,7 +27,8 @@ const routes = [
   { path: '/gate-entry', component: Gate },
   { path: '/yarn-store', component: Yarn },
   { path: '/grey-fabric-store', component: Grey },
-  { path: '/finish-fabric-store', component: Finish }
+  { path: '/finish-fabric-store', component: Finish },
+  { path: '*', component: require('./components/Error.vue').default }
 ]
 
 Vue.filter('upText',function (text) {
