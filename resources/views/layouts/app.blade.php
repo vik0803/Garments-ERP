@@ -74,5 +74,10 @@
             @yield('content')
         </main>
     </div>
+    @auth
+      <script>
+        window.user=@json(auth()->user())
+      </script>
+    @endauth
 </body>
 </html>

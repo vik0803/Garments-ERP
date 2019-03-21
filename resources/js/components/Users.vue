@@ -3,7 +3,7 @@
 
     <div class="row justify-content-center mt-3">
       <div class="col-12">
-        <div class="card">
+        <div class="card" v-if="$gate.isAdmin()">
           <div class="card-header">
             <h3 class="card-title text-center">Users Table</h3>
             <div class="card-tools">

@@ -4,6 +4,8 @@ window.Vue = require('vue');
 Vue.config.productionTip = false;
 
 import moment from 'moment';
+import gate from './Gate';
+Vue.prototype.$gate=new gate(window.user);
 import VueProgressBar from 'vue-progressbar';
 import Swal from 'sweetalert2';
 import VueRouter from 'vue-router';
@@ -54,6 +56,7 @@ const Toast = Swal.mixin({
 window.Toast=Toast;
 
 window.Fire=new Vue();
+
 
 const router = new VueRouter({
   mode: 'history',
