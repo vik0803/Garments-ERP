@@ -104,18 +104,32 @@
         }
       },
       mounted() {
-        axios.get('api/user')
-          .then((response)=> this.users = response.data.data)
-          .catch((error) => this.errors = error.response.data.errors);
+        this.loadUsers();
       },
       methods:{
+        loadUsers(){
+          axios.get('api/user')
+            .then((response)=> this.users = response.data.data)
+            .catch((error) => this.errors = error.response.data.errors);
+        },
         createUser(){
+          this.$Progress.start()
           axios.post('api/user',this.$data.form)
             .then((response)=>{
               this.errors= ""
               this.form= ''
+              this.$Progress.finish()
+              $('#AddNew').modal('hide');
+              Toast.fire({
+                type: 'success',
+                title: 'User Created in successfully'
+              });
+              this.loadUsers();
             })
-            .catch((error) => this.errors = error.response.data.errors);
+            .catch((error) => {
+              this.errors = error.response.data.errors
+              this.$Progress.fail()
+            });
         }
       }
     }

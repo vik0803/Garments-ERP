@@ -13,6 +13,7 @@
     <div class="col-10" >
       <div class="tab-content" id="v-pills-tabContent">
         <router-view></router-view>
+        <vue-progress-bar></vue-progress-bar>
       </div>
     </div>
   </div>

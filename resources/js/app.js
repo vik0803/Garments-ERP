@@ -3,7 +3,9 @@ require('./bootstrap');
 window.Vue = require('vue');
 Vue.config.productionTip = false;
 
-import moment from 'moment'
+import moment from 'moment';
+import VueProgressBar from 'vue-progressbar';
+import Swal from 'sweetalert2';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
@@ -29,9 +31,27 @@ const routes = [
 Vue.filter('upText',function (text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 });
+// For Momentjs
 Vue.filter('myDate',function (created) {
   return moment(created).format('MMMM Do YYYY');
 });
+
+// For Vue-Progress-Bar
+Vue.use(VueProgressBar, {
+  color: 'rgb(143, 255, 199)',
+  failedColor: 'red',
+  height: '2px'
+});
+
+// For sweetalert2
+window.Swal=Swal;
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+window.Toast=Toast;
 
 const router = new VueRouter({
   mode: 'history',
