@@ -2033,27 +2033,32 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.loadUsers();
+    setInterval(function () {
+      return _this.loadUsers();
+    }, 3000);
   },
   methods: {
     loadUsers: function loadUsers() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get('api/user').then(function (response) {
-        return _this.users = response.data.data;
+        return _this2.users = response.data.data;
       }).catch(function (error) {
-        return _this.errors = error.response.data.errors;
+        return _this2.errors = error.response.data.errors;
       });
     },
     createUser: function createUser() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$Progress.start();
       axios.post('api/user', this.$data.form).then(function (response) {
-        _this2.errors = "";
-        _this2.form = '';
+        _this3.errors = "";
+        _this3.form = '';
 
-        _this2.$Progress.finish();
+        _this3.$Progress.finish();
 
         $('#AddNew').modal('hide');
         Toast.fire({
@@ -2061,11 +2066,11 @@ __webpack_require__.r(__webpack_exports__);
           title: 'User Created in successfully'
         });
 
-        _this2.loadUsers();
+        _this3.loadUsers();
       }).catch(function (error) {
-        _this2.errors = error.response.data.errors;
+        _this3.errors = error.response.data.errors;
 
-        _this2.$Progress.fail();
+        _this3.$Progress.fail();
       });
     }
   }
