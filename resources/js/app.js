@@ -53,6 +53,8 @@ const Toast = Swal.mixin({
 });
 window.Toast=Toast;
 
+window.Fire=new Vue();
+
 const router = new VueRouter({
   mode: 'history',
   routes

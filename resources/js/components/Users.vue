@@ -24,7 +24,7 @@
               </thead>
 
               <tbody>
-                <tr v-for="user in users">
+                <tr v-for="user,key in users">
                   <td>{{ user.id }}</td>
                   <td>{{ user.name }}</td>
                   <td>{{ user.email }}</td>
@@ -34,7 +34,7 @@
                     <a href="#">
                       <i class="fas fa-edit blue"></i>
                     </a>
-                    <a href="#"><i class="fas fa-trash red"></i></a>
+                    <a href="#" @click=deleteUser(key,user.id)><i class="fas fa-trash red"></i></a>
                   </td>
                 </tr>
               </tbody>
@@ -106,13 +106,18 @@
       mounted() {
         this.loadUsers();
         setInterval(() => this.loadUsers(),3000);
+        // Fire.$on('AfterCreated',() => {
+        //   this.loadUsers();
+        // });
       },
       methods:{
+
         loadUsers(){
           axios.get('api/user')
             .then((response)=> this.users = response.data.data)
             .catch((error) => this.errors = error.response.data.errors);
         },
+
         createUser(){
           this.$Progress.start()
           axios.post('api/user',this.$data.form)
@@ -120,6 +125,7 @@
               this.errors= ""
               this.form= ''
               this.$Progress.finish()
+              // Fire.$emit('AfterCreated');
               $('#AddNew').modal('hide');
               Toast.fire({
                 type: 'success',
@@ -131,7 +137,32 @@
               this.errors = error.response.data.errors
               this.$Progress.fail()
             });
+        },
+
+        deleteUser(key,id){
+          // console.log(key,id);
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.value) {
+              axios.delete(`api/user/${id}`)
+              this.errors= "";
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              );
+              this.loadUsers();
+            }
+          })
         }
+
       }
     }
 </script>

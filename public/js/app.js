@@ -2038,7 +2038,9 @@ __webpack_require__.r(__webpack_exports__);
     this.loadUsers();
     setInterval(function () {
       return _this.loadUsers();
-    }, 3000);
+    }, 3000); // Fire.$on('AfterCreated',() => {
+    //   this.loadUsers();
+    // });
   },
   methods: {
     loadUsers: function loadUsers() {
@@ -2058,7 +2060,8 @@ __webpack_require__.r(__webpack_exports__);
         _this3.errors = "";
         _this3.form = '';
 
-        _this3.$Progress.finish();
+        _this3.$Progress.finish(); // Fire.$emit('AfterCreated');
+
 
         $('#AddNew').modal('hide');
         Toast.fire({
@@ -2071,6 +2074,28 @@ __webpack_require__.r(__webpack_exports__);
         _this3.errors = error.response.data.errors;
 
         _this3.$Progress.fail();
+      });
+    },
+    deleteUser: function deleteUser(key, id) {
+      var _this4 = this;
+
+      // console.log(key,id);
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          axios.delete("api/user/".concat(id));
+          _this4.errors = "";
+          Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+
+          _this4.loadUsers();
+        }
       });
     }
   }
@@ -57642,7 +57667,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.users, function(user) {
+                _vm._l(_vm.users, function(user, key) {
                   return _c("tr", [
                     _c("td", [_vm._v(_vm._s(user.id))]),
                     _vm._v(" "),
@@ -57656,7 +57681,22 @@ var render = function() {
                       _vm._v(_vm._s(_vm._f("myDate")(user.created_at)))
                     ]),
                     _vm._v(" "),
-                    _vm._m(2, true)
+                    _c("td", [
+                      _vm._m(2, true),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteUser(key, user.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-trash red" })]
+                      )
+                    ])
                   ])
                 }),
                 0
@@ -57927,14 +57967,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-edit blue" })
-      ]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-trash red" })
-      ])
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-edit blue" })
     ])
   },
   function() {
@@ -72900,6 +72934,7 @@ var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.mixin({
   timer: 3000
 });
 window.Toast = Toast;
+window.Fire = new Vue();
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
   mode: 'history',
   routes: routes
