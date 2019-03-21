@@ -2087,7 +2087,32 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     updateUser: function updateUser() {
-      console.log('Edit Modal');
+      var _this4 = this;
+
+      this.$Progress.start();
+      axios.patch("api/user/".concat(this.form.id), this.$data.form).then(function (response) {
+        _this4.errors = "";
+
+        _this4.$Progress.finish();
+
+        $('#AddNew').modal('hide');
+        Toast.fire({
+          type: 'success',
+          title: 'Information has been updated'
+        });
+
+        _this4.loadUsers();
+
+        _this4.form.name = '';
+        _this4.form.email = '';
+        _this4.form.type = '';
+        _this4.form.password = '';
+        _this4.title = '';
+      }).catch(function (error) {
+        _this4.errors = error.response.data.errors;
+
+        _this4.$Progress.fail();
+      });
     },
     editModal: function editModal(key) {
       $('#AddNew').modal('show');
@@ -2097,7 +2122,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form = this.users[key];
     },
     deleteUser: function deleteUser(key, id) {
-      var _this4 = this;
+      var _this5 = this;
 
       // console.log(key,id);
       Swal.fire({
@@ -2111,10 +2136,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios.delete("api/user/".concat(id));
-          _this4.errors = "";
+          _this5.errors = "";
           Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
 
-          _this4.loadUsers();
+          _this5.loadUsers();
         }
       });
     }

@@ -151,7 +151,27 @@
         },
 
         updateUser(){
-          console.log('Edit Modal');
+          this.$Progress.start()
+          axios.patch(`api/user/${this.form.id}`,this.$data.form)
+            .then((response) => {
+              this.errors=""
+              this.$Progress.finish()
+              $('#AddNew').modal('hide');
+              Toast.fire({
+                type: 'success',
+                title: 'Information has been updated'
+              });
+              this.loadUsers();
+              this.form.name='';
+              this.form.email='';
+              this.form.type='';
+              this.form.password='';
+              this.title='';
+            })
+            .catch((error) => {
+              this.errors = error.response.data.errors
+              this.$Progress.fail()
+            });
         },
         editModal(key){
           $('#AddNew').modal('show');
