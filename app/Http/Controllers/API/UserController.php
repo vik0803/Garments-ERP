@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\User;
 
@@ -20,7 +21,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::paginate(10);
+      if (Gate::allows('isAdmin')) {
+          return User::paginate(10);
+      }
     }
 
     /**
