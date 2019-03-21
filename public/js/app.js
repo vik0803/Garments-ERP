@@ -57762,6 +57762,7 @@ var render = function() {
                       _c(
                         "a",
                         {
+                          staticClass: "text-danger",
                           attrs: { href: "#" },
                           on: {
                             click: function($event) {

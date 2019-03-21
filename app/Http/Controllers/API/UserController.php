@@ -74,6 +74,9 @@ class UserController extends Controller
           'type' => 'required',
           'password' => 'sometimes|min:6'
         ]);
+        if (!empty($request->password)) {
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
 
         $updateuser->update($request->all());
     }

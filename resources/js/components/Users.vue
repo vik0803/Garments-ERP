@@ -32,7 +32,7 @@
                   <td>{{ user.created_at | myDate }}</td>
                   <td>
                     <a href="#" @click="editModal(key)"><i class="fas fa-edit blue"></i></a>
-                    <a href="#" @click="deleteUser(key,user.id)"><i class="fas fa-trash red"></i></a>
+                    <a href="#" @click="deleteUser(key,user.id)" class="text-danger"><i class="fas fa-trash red"></i></a>
                   </td>
                 </tr>
               </tbody>
