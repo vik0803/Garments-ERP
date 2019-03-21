@@ -7,7 +7,7 @@
           <div class="card-header">
             <h3 class="card-title text-center">Users Table</h3>
             <div class="card-tools">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddNew"> Add New <i class="fas fa-user-plus"></i></button>
+              <button type="button" class="btn btn-success" @click="OpenModal"> Add New <i class="fas fa-user-plus"></i></button>
             </div>
           </div>
           <div class="card-body table-responsive p-0">
@@ -31,10 +31,8 @@
                   <td>{{ user.type | upText }}</td>
                   <td>{{ user.created_at | myDate }}</td>
                   <td>
-                    <a href="#">
-                      <i class="fas fa-edit blue"></i>
-                    </a>
-                    <a href="#" @click=deleteUser(key,user.id)><i class="fas fa-trash red"></i></a>
+                    <a href="#" @click="editModal(key)"><i class="fas fa-edit blue"></i></a>
+                    <a href="#" @click="deleteUser(key,user.id)"><i class="fas fa-trash red"></i></a>
                   </td>
                 </tr>
               </tbody>
@@ -49,12 +47,12 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add New</h5>
+            <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form @submit.prevent="createUser">
+          <form @submit.prevent="editmode ? updateUser() : createUser()">
             <div class="modal-body">
               <div class="form-group">
                 <input type="text" name="name" class="form-control" :class="{'is-invalid':errors.name}" placeholder="Name" v-model="form.name">
@@ -80,7 +78,8 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Create</button>
+              <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+              <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
             </div>
           </form>
         </div>
@@ -100,7 +99,9 @@
             type:'',
             password:''
           },
-          errors:{}
+          title:'',
+          errors:{},
+          editmode:false
         }
       },
       mounted() {
@@ -116,6 +117,16 @@
           axios.get('api/user')
             .then((response)=> this.users = response.data.data)
             .catch((error) => this.errors = error.response.data.errors);
+        },
+
+        OpenModal(){
+          this.form.name='';
+          this.form.email='';
+          this.form.type='';
+          this.form.password='';
+          this.title='Add New';
+          this.editmode=false;
+          $('#AddNew').modal('show');
         },
 
         createUser(){
@@ -137,6 +148,17 @@
               this.errors = error.response.data.errors
               this.$Progress.fail()
             });
+        },
+
+        updateUser(){
+          console.log('Edit Modal');
+        },
+        editModal(key){
+          $('#AddNew').modal('show');
+          this.errors= "";
+          this.editmode=true;
+          this.title='Update User Info'
+          this.form=this.users[key];
         },
 
         deleteUser(key,id){
