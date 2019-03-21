@@ -10,35 +10,37 @@
               <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddNew"> Add New <i class="fas fa-user-plus"></i></button>
             </div>
           </div>
-          <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
             <table class="table table-hover">
-              <tbody><tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Type</th>
-                <th>Created At</th>
-                <th>Modify</th>
-              </tr>
-              <tr v-for="user in users">
-                <td>{{ user.id }}</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.type }}</td>
-                <td>{{ user.created_at }}</td>
-                <td>
-                  <a href="#">
-                    <i class="fas fa-edit blue"></i>
-                  </a>
-                  <a href="#"><i class="fas fa-trash red"></i></a>
-                </td>
-              </tr>
-            </tbody></table>
+              <thead class="thead-dark">
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Type</th>
+                  <th>Created At</th>
+                  <th>Modify</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr v-for="user in users">
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.type | upText }}</td>
+                  <td>{{ user.created_at | myDate }}</td>
+                  <td>
+                    <a href="#">
+                      <i class="fas fa-edit blue"></i>
+                    </a>
+                    <a href="#"><i class="fas fa-trash red"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <!-- /.card-body -->
         </div>
-        <!-- /.card -->
       </div>
     </div>
 
