@@ -3,10 +3,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Quotation Evaluation Component</div>
+                    <div class="card-header">Dyes and chemical Component</div>
 
                     <div class="card-body">
-                        I'm an Quotation Evaluation component.
+                        I'm an Dyes and chemical component.
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
 <script>
     export default {
         mounted() {
-            console.log('Quotation Evaluation Component mounted.')
+            console.log('Dyes and chemical Component mounted.')
         }
     }
 </script>

@@ -13,8 +13,8 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 let Users =require('./components/Users.vue').default;
-let Purchase =require('./components/Purchase.vue').default;
-let Quotation =require('./components/Quotation.vue').default ;
+let Dyes =require('./components/Dyes.vue').default;
+let Trims =require('./components/Trims.vue').default ;
 let Gate =require('./components/Gate.vue').default;
 let Yarn =require('./components/Yarn.vue').default;
 let Grey =require('./components/Grey.vue').default;
@@ -22,8 +22,8 @@ let Finish =require('./components/Finish.vue').default;
 
 const routes = [
   { path: '/users', component: Users},
-  { path: '/purchase-requisition', component: Purchase },
-  { path: '/quotation-evaluation', component: Quotation },
+  { path: '/dyes-and-chemical-store', component: Dyes },
+  { path: '/trims-store', component: Trims },
   { path: '/gate-entry', component: Gate },
   { path: '/yarn-store', component: Yarn },
   { path: '/grey-fabric-store', component: Grey },
