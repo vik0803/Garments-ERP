@@ -44,12 +44,11 @@
             {{-- <Myheader></Myheader> --}}
             <nav id="nav-menu-container">
               <ul class="nav-menu">
-                <li class="menu-active"><a href="">Home</a></li>
                 <li><a href="#">Library</a></li>
                 <li><a href="#">Merchandising</a></li>
                 <li><a href="#">Planning</a></li>
                 <li><a href="#">Commercial</a> </li>
-                <li><a href="{{ route('inventory') }}">Inventory</a></li>
+                <li class="menu-active"><a href="{{ route('inventory') }}">Inventory</a></li>
                 <li><a href="#">Production</a></li>
                 <li><a href="#">Accounting</a></li>
               </ul>

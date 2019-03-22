@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/','ViewController@index');
-
-Route::get('inventory','ViewController@Inventory')->name('inventory');
-
+Route::get('/',function(){
+  return view('HomeView');
+});
 
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('inventory','HomeController@index')->name('inventory');
 Route::get('{path}','HomeController@index')->where('path','[A-Za-z]+');
