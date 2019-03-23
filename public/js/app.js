@@ -1845,9 +1845,153 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      infos: {},
+      form: {
+        category: '',
+        gateIn: '',
+        gateOut: '',
+        gatePass: ''
+      },
+      store: true,
+      editmode: false,
+      errors: {}
+    };
+  },
   mounted: function mounted() {
-    console.log('Gate Entry Component mounted.');
+    var _this = this;
+
+    this.loadInfo();
+    setInterval(function () {
+      return _this.loadInfo();
+    }, 3000);
+  },
+  methods: {
+    loadInfo: function loadInfo() {
+      var _this2 = this;
+
+      axios.get('/getGateEntry').then(function (response) {
+        return _this2.infos = response.data.data;
+      }).catch(function (error) {
+        return _this2.errors = error.response.data.errors;
+      });
+    },
+    storeGateEntry: function storeGateEntry() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      axios.post('gate-Entry', this.$data.form).then(function (response) {
+        _this3.errors = '';
+
+        _this3.$Progress.finish();
+
+        Toast.fire({
+          type: 'success',
+          title: 'Gate Entry Created in successfully'
+        });
+
+        _this3.loadInfo();
+
+        _this3.form.category = '';
+        _this3.form.gateIn = '';
+        _this3.form.gateOut = '';
+        _this3.form.gatePass = '';
+      }).catch(function (error) {
+        _this3.errors = error.response.data.errors;
+
+        _this3.$Progress.fail();
+      });
+    },
+    deleteEntry: function deleteEntry(key, id) {
+      var _this4 = this;
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          axios.delete("gate-Entry/".concat(id));
+          _this4.errors = "";
+          Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+
+          _this4.loadInfo();
+        }
+      });
+    }
   }
 });
 
@@ -1928,8 +2072,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -58078,28 +58220,329 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center mt-3" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _vm.$gate.isAdmin()
+          ? _c("div", { staticClass: "card" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "card text-white mb-3",
+                  staticStyle: { "background-color": "cadetblue" }
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "form-row" }, [
+                      _c("div", { staticClass: "form-group col-md-2" }, [
+                        _c("label", { attrs: { for: "category" } }, [
+                          _vm._v("Category")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.category,
+                                expression: "form.category"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: { "is-invalid": _vm.errors.category },
+                            attrs: { id: "category" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "category",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Choose...")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "yarn" } }, [
+                              _vm._v("Yarn")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "grey fabric" } }, [
+                              _vm._v("Grey Fabric")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "finish fabric" } },
+                              [_vm._v("Finish Fabric")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "dyes and chemical" } },
+                              [_vm._v("Dyes and Chemical")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "trims" } }, [
+                              _vm._v("Trims")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.errors.category
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.category[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-2" }, [
+                        _c("label", { attrs: { for: "gatein" } }, [
+                          _vm._v("Gate In")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.gateIn,
+                              expression: "form.gateIn"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors.gateIn },
+                          attrs: { type: "text", id: "gatein" },
+                          domProps: { value: _vm.form.gateIn },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "gateIn", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.gateIn
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.gateIn[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-2" }, [
+                        _c("label", { attrs: { for: "gateout" } }, [
+                          _vm._v("Gate Out")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.gateOut,
+                              expression: "form.gateOut"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors.gateOut },
+                          attrs: { type: "text", id: "gateout" },
+                          domProps: { value: _vm.form.gateOut },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "gateOut", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.gateOut
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.gateOut[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-2" }, [
+                        _c("label", { attrs: { for: "gatepass" } }, [
+                          _vm._v("Gate Pass")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.gatePass,
+                              expression: "form.gatePass"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors.gatePass },
+                          attrs: { type: "text", id: "gatepass" },
+                          domProps: { value: _vm.form.gatePass },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "gatePass",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.gatePass
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.gatePass[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-3" }, [
+                        _vm.store
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-dark btn-lg btn-block",
+                                staticStyle: { "margin-top": "27px" },
+                                attrs: { type: "submit" },
+                                on: { click: _vm.storeGateEntry }
+                              },
+                              [_vm._v("Gate Entry")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.editmode
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-dark btn-lg btn-block",
+                                staticStyle: { "margin-top": "27px" },
+                                attrs: { type: "submit" }
+                              },
+                              [_vm._v("Update Gate Entry")]
+                            )
+                          : _vm._e()
+                      ])
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body table-responsive p-0" }, [
+                _c("table", { staticClass: "table table-hover" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.infos, function(info, key) {
+                      return _c("tr", [
+                        _c("td", [_vm._v(_vm._s(info.id))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.category))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.gateIn))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.gateOut))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.gatePass))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.created_at))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editModal(key)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-edit blue" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-danger",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteEntry(key, info.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-trash red" })]
+                          )
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ])
+            ])
+          : _vm._e()
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Gate Entry Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an Gate Entry component.\n                "
-              )
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title text-center" }, [
+        _vm._v("Gate Entry")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Gate In")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Gate Out")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Gate Pass")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Created At")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Modify")])
       ])
     ])
   }
@@ -58229,20 +58672,18 @@ var render = function() {
                   _vm._v("Users Table")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "card-tool" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success",
-                      attrs: { type: "button" },
-                      on: { click: _vm.OpenModal }
-                    },
-                    [
-                      _vm._v(" Add New "),
-                      _c("i", { staticClass: "fas fa-user-plus" })
-                    ]
-                  )
-                ])
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { type: "button" },
+                    on: { click: _vm.OpenModal }
+                  },
+                  [
+                    _vm._v(" Add New "),
+                    _c("i", { staticClass: "fas fa-user-plus" })
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body table-responsive p-0" }, [
@@ -73532,7 +73973,7 @@ var routes = [{
   path: '/trims-store',
   component: Trims
 }, {
-  path: '/gate-entry',
+  path: '/gateEntry',
   component: Gate
 }, {
   path: '/yarn-store',
@@ -73547,6 +73988,7 @@ var routes = [{
   path: '*',
   component: __webpack_require__(/*! ./components/Error.vue */ "./resources/js/components/Error.vue").default
 }];
+Vue.component('Error', __webpack_require__(/*! ./components/Error.vue */ "./resources/js/components/Error.vue").default);
 Vue.filter('upText', function (text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }); // For Momentjs

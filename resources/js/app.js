@@ -24,12 +24,14 @@ const routes = [
   { path: '/users', component: Users},
   { path: '/dyes-and-chemical-store', component: Dyes },
   { path: '/trims-store', component: Trims },
-  { path: '/gate-entry', component: Gate },
+  { path: '/gateEntry', component: Gate },
   { path: '/yarn-store', component: Yarn },
   { path: '/grey-fabric-store', component: Grey },
   { path: '/finish-fabric-store', component: Finish },
   { path: '*', component: require('./components/Error.vue').default }
 ]
+
+Vue.component('Error', require('./components/Error.vue').default);
 
 Vue.filter('upText',function (text) {
   return text.charAt(0).toUpperCase() + text.slice(1);

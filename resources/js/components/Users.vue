@@ -6,9 +6,7 @@
         <div class="card" v-if="$gate.isAdmin()">
           <div class="card-header">
             <h3 class="card-title text-center">Users Table</h3>
-            <div class="card-tool" >
               <button type="button" class="btn btn-success" @click="OpenModal"> Add New <i class="fas fa-user-plus"></i></button>
-            </div>
           </div>
           <div class="card-body table-responsive p-0">
             <table class="table table-hover">

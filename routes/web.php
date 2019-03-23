@@ -20,4 +20,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('inventory','HomeController@index')->name('inventory');
+Route::resource('gate-Entry','GateEntryController');
+Route::get('getGateEntry','GateEntryController@getGateEntry');
 Route::get('{path}','HomeController@index')->where('path','[A-Za-z]+');

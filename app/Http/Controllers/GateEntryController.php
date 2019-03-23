@@ -14,7 +14,7 @@ class GateEntryController extends Controller
      */
     public function index()
     {
-        //
+        return GateEntry::paginate(10);
     }
 
     /**
@@ -35,7 +35,19 @@ class GateEntryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+          'category' => 'required|string',
+          'gateIn' => 'required|sometimes|integer|nullable',
+          'gateOut' => 'nullable|integer',
+          'gatePass' => 'nullable|integer'
+        ]);
+
+        return GateEntry::create([
+          'category' => $request->category,
+          'gateIn' =>$request->gateIn,
+          'gateOut' => $request->gateOut ?: 0,
+          'gatePass' => $request->gatePass ?: 0
+        ]);
     }
 
     /**
@@ -67,7 +79,7 @@ class GateEntryController extends Controller
      * @param  \App\GateEntry  $gateEntry
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GateEntry $gateEntry)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -78,8 +90,14 @@ class GateEntryController extends Controller
      * @param  \App\GateEntry  $gateEntry
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GateEntry $gateEntry)
+    public function destroy($id)
     {
-        //
+        $deleteinfo=GateEntry::findOrFail($id);
+        $deleteinfo->delete();
+    }
+
+    public function getGateEntry()
+    {
+        return GateEntry::paginate(10);
     }
 }
