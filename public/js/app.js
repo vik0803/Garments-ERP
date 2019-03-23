@@ -1912,6 +1912,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1971,8 +1972,46 @@ __webpack_require__.r(__webpack_exports__);
         _this3.$Progress.fail();
       });
     },
-    deleteEntry: function deleteEntry(key, id) {
+    editModal: function editModal(key) {
+      this.errors = "";
+      this.editmode = true;
+      this.store = false;
+      this.form = this.infos[key];
+    },
+    clear: function clear() {
+      this.errors = "";
+      this.form = '';
+    },
+    updateEntry: function updateEntry() {
       var _this4 = this;
+
+      this.$Progress.start();
+      axios.patch("gate-Entry/".concat(this.form.id), this.$data.form).then(function (response) {
+        _this4.errors = "";
+
+        _this4.$Progress.finish();
+
+        Toast.fire({
+          type: 'success',
+          title: 'Gate Entry Information has been updated'
+        });
+
+        _this4.loadInfo();
+
+        _this4.form.category = '';
+        _this4.form.gateIn = '';
+        _this4.form.gateOut = '';
+        _this4.form.gatePass = '';
+        _this4.editmode = false;
+        _this4.store = true;
+      }).catch(function (error) {
+        _this4.errors = error.response.data.errors;
+
+        _this4.$Progress.fail();
+      });
+    },
+    deleteEntry: function deleteEntry(key, id) {
+      var _this5 = this;
 
       Swal.fire({
         title: 'Are you sure?',
@@ -1985,10 +2024,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios.delete("gate-Entry/".concat(id));
-          _this4.errors = "";
+          _this5.errors = "";
           Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
 
-          _this4.loadInfo();
+          _this5.loadInfo();
         }
       });
     }
@@ -58440,11 +58479,25 @@ var render = function() {
                           ? _c(
                               "button",
                               {
-                                staticClass: "btn btn-dark btn-lg btn-block",
+                                staticClass: "btn btn-dark btn-lg",
                                 staticStyle: { "margin-top": "27px" },
-                                attrs: { type: "submit" }
+                                attrs: { type: "submit" },
+                                on: { click: _vm.updateEntry }
                               },
-                              [_vm._v("Update Gate Entry")]
+                              [_vm._v("Update Entry")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.editmode
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary btn-lg",
+                                staticStyle: { "margin-top": "27px" },
+                                attrs: { type: "submit" },
+                                on: { click: _vm.clear }
+                              },
+                              [_vm._v("Clear")]
                             )
                           : _vm._e()
                       ])
@@ -58463,7 +58516,9 @@ var render = function() {
                       return _c("tr", [
                         _c("td", [_vm._v(_vm._s(info.id))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(info.category))]),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm._f("upText")(info.category)))
+                        ]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(info.gateIn))]),
                         _vm._v(" "),
@@ -58471,7 +58526,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(info.gatePass))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(info.created_at))]),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm._f("mlDate")(info.created_at)))
+                        ]),
                         _vm._v(" "),
                         _c("td", [
                           _c(
@@ -73995,6 +74052,9 @@ Vue.filter('upText', function (text) {
 
 Vue.filter('myDate', function (created) {
   return moment__WEBPACK_IMPORTED_MODULE_0___default()(created).format('MMMM Do YYYY');
+});
+Vue.filter('mlDate', function (created) {
+  return moment__WEBPACK_IMPORTED_MODULE_0___default()(created).format('LL');
 }); // For Vue-Progress-Bar
 
 Vue.use(vue_progressbar__WEBPACK_IMPORTED_MODULE_2___default.a, {

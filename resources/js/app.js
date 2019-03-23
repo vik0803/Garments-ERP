@@ -41,6 +41,10 @@ Vue.filter('myDate',function (created) {
   return moment(created).format('MMMM Do YYYY');
 });
 
+Vue.filter('mlDate',function (created){
+  return moment(created).format('LL');
+})
+
 // For Vue-Progress-Bar
 Vue.use(VueProgressBar, {
   color: 'rgb(143, 255, 199)',

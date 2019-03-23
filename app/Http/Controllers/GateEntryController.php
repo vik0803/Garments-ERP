@@ -81,7 +81,17 @@ class GateEntryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $info=GateEntry::findOrFail($id);
+
+        $this->validate($request, [
+          'category' => 'required|string',
+          'gateIn' => 'required|sometimes|integer|nullable',
+          'gateOut' => 'sometimes|integer',
+          'gatePass' => 'sometimes|integer'
+        ]);
+
+        $info->update($request->all());
+
     }
 
     /**

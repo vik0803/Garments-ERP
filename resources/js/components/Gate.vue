@@ -39,7 +39,8 @@
                     </div>
                     <div class="form-group col-md-3">
                       <button type="submit" v-if="store" @click="storeGateEntry" class="btn btn-dark btn-lg btn-block" style="margin-top: 27px;">Gate Entry</button>
-                      <button type="submit" v-if="editmode" class="btn btn-dark btn-lg btn-block" style="margin-top: 27px;">Update Gate Entry</button>
+                      <button type="submit" v-if="editmode" @click="updateEntry" class="btn btn-dark btn-lg" style="margin-top: 27px;">Update Entry</button>
+                      <button type="submit" v-if="editmode" @click="clear" class="btn btn-primary btn-lg" style="margin-top: 27px;">Clear</button>
                     </div>
                   </div>
                 <!-- </form> -->
@@ -62,11 +63,11 @@
                 <tbody>
                   <tr v-for="info,key in infos">
                     <td>{{ info.id }}</td>
-                    <td>{{ info.category }}</td>
+                    <td>{{ info.category | upText}}</td>
                     <td>{{ info.gateIn }}</td>
                     <td>{{ info.gateOut }}</td>
                     <td>{{ info.gatePass }}</td>
-                    <td>{{ info.created_at }}</td>
+                    <td>{{ info.created_at |mlDate }}</td>
                     <td>
                       <a href="#" @click="editModal(key)"><i class="fas fa-edit blue"></i></a>
                       <a href="#" @click="deleteEntry(key,info.id)" class="text-danger"><i class="fas fa-trash red"></i></a>
@@ -128,6 +129,41 @@
                 this.errors =error.response.data.errors
                 this.$Progress.fail();
               })
+          },
+
+          editModal(key){
+            this.errors= "";
+            this.editmode=true;
+            this.store=false;
+            this.form=this.infos[key];
+          },
+          clear(){
+            this.errors= "";
+            this.form='';
+          },
+
+          updateEntry(){
+            this.$Progress.start()
+            axios.patch(`gate-Entry/${this.form.id}`,this.$data.form)
+              .then((response) => {
+                this.errors=""
+                this.$Progress.finish();
+                Toast.fire({
+                  type: 'success',
+                  title: 'Gate Entry Information has been updated'
+                });
+                this.loadInfo();
+                this.form.category='';
+                this.form.gateIn='';
+                this.form.gateOut='';
+                this.form.gatePass='';
+                this.editmode=false;
+                this.store=true;
+              })
+              .catch((error) => {
+                this.errors = error.response.data.errors
+                this.$Progress.fail()
+              });
           },
 
           deleteEntry(key,id){
