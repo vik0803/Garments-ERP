@@ -11,7 +11,7 @@
           <router-link to="/users" class="nav-link" data-toggle="pill"><i class="fas fa-users nav-icon"></i> Usres</router-link>
         @endcan
         <router-link to="/gateEntry" class="nav-link" data-toggle="pill"><i class="fas fa-torii-gate orange"></i> Gate Entry</router-link>
-        <router-link to="/yarn-store" class="nav-link" data-toggle="pill"><i class="fab fa-yarn roblue"></i> Yarn Store</router-link>
+        <router-link to="/yarnStore" class="nav-link" data-toggle="pill"><i class="fab fa-yarn roblue"></i> Yarn Store</router-link>
         <router-link to="/grey-fabric-store" class="nav-link" data-toggle="pill"><i class="fas fa-store darkslategray"></i> Grey Fabric Store</router-link>
         <router-link to="/finish-fabric-store" class="nav-link" data-toggle="pill"><i class="fas fa-store red"></i> Finish Fabric Store</router-link>
         <router-link to="/dyes-and-chemical-store" class="nav-link" data-toggle="pill"><i class="far fa-object-group "></i> Dyes and Chemical Store</router-link>

@@ -25,7 +25,7 @@ const routes = [
   { path: '/dyes-and-chemical-store', component: Dyes },
   { path: '/trims-store', component: Trims },
   { path: '/gateEntry', component: Gate },
-  { path: '/yarn-store', component: Yarn },
+  { path: '/yarnStore', component: Yarn },
   { path: '/grey-fabric-store', component: Grey },
   { path: '/finish-fabric-store', component: Finish },
   { path: '*', component: require('./components/Error.vue').default }

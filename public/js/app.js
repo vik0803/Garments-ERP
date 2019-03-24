@@ -74033,7 +74033,7 @@ var routes = [{
   path: '/gateEntry',
   component: Gate
 }, {
-  path: '/yarn-store',
+  path: '/yarnStore',
   component: Yarn
 }, {
   path: '/grey-fabric-store',
