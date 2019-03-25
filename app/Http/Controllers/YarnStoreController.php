@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\YarnStore;
 
 class YarnStoreController extends Controller
 {
@@ -34,7 +35,16 @@ class YarnStoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, [
+        'color' => 'required|string',
+        'fiber_content' => 'required|sometimes|string|nullable',
+        'weight' => 'required|nullable|string',
+        'yardageORball' => 'required|nullable|string',
+        'gauge' => 'required|string',
+        'care' => 'required|string'
+      ]);
+
+      return YarnStore::create($request->all());
     }
 
     /**
@@ -68,7 +78,18 @@ class YarnStoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $updateinfo=YarnStore::findOrFail($id);
+
+        $this->validate($request, [
+          'color' => 'required|string',
+          'fiber_content' => 'required|sometimes|string|nullable',
+          'weight' => 'required|nullable|string',
+          'yardageORball' => 'required|nullable|string',
+          'gauge' => 'required|string',
+          'care' => 'required|string'
+        ]);
+
+        $updateinfo->update($request->all());
     }
 
     /**
@@ -79,6 +100,12 @@ class YarnStoreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deleteinfo=YarnStore::findOrFail($id);
+        $deleteinfo->delete();
+    }
+
+    public function getYarnStore()
+    {
+        return YarnStore::paginate(15);
     }
 }

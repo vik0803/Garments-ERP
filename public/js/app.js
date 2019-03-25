@@ -2435,15 +2435,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      users: {},
+      infos: {},
       form: {
-        name: '',
-        email: '',
-        type: '',
-        password: ''
+        color: '',
+        fiber_content: '',
+        weight: '',
+        yardageORball: '',
+        gauge: '',
+        care: ''
       },
       title: '',
       errors: {},
@@ -2451,36 +2460,43 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.loadUsers(); // setInterval(() => this.loadUsers(),3000);
+    var _this = this;
+
+    this.loadInfos();
+    setInterval(function () {
+      return _this.loadInfos();
+    }, 3000);
   },
   methods: {
-    loadUsers: function loadUsers() {
-      var _this = this;
+    loadInfos: function loadInfos() {
+      var _this2 = this;
 
-      axios.get('api/user').then(function (response) {
-        return _this.users = response.data.data;
+      axios.get('getYarnStore').then(function (response) {
+        return _this2.infos = response.data.data;
       }).catch(function (error) {
-        return _this.errors = error.response.data.errors;
+        return _this2.errors = error.response.data.errors;
       });
     },
     OpenModal: function OpenModal() {
-      this.form.name = '';
-      this.form.email = '';
-      this.form.type = '';
-      this.form.password = '';
+      this.form.color = '';
+      this.form.fiber_content = '';
+      this.form.weight = '';
+      this.form.yardageORball = '';
+      this.form.gauge = '';
+      this.form.care = '';
       this.title = 'Add New Yarn';
       this.editmode = false;
       $('#AddNew').modal('show');
     },
-    createUser: function createUser() {
-      var _this2 = this;
+    createInfo: function createInfo() {
+      var _this3 = this;
 
       this.$Progress.start();
-      axios.post('api/user', this.$data.form).then(function (response) {
-        _this2.errors = "";
-        _this2.form = '';
+      axios.post('yarn-Store', this.$data.form).then(function (response) {
+        _this3.errors = "";
+        _this3.form = '';
 
-        _this2.$Progress.finish();
+        _this3.$Progress.finish();
 
         $('#AddNew').modal('hide');
         Toast.fire({
@@ -2488,39 +2504,41 @@ __webpack_require__.r(__webpack_exports__);
           title: 'Yarn Info Created in successfully'
         });
 
-        _this2.loadUsers();
-      }).catch(function (error) {
-        _this2.errors = error.response.data.errors;
-
-        _this2.$Progress.fail();
-      });
-    },
-    updateUser: function updateUser() {
-      var _this3 = this;
-
-      this.$Progress.start();
-      axios.patch("api/user/".concat(this.form.id), this.$data.form).then(function (response) {
-        _this3.errors = "";
-
-        _this3.$Progress.finish();
-
-        $('#AddNew').modal('hide');
-        Toast.fire({
-          type: 'success',
-          title: 'Information has been updated'
-        });
-
-        _this3.loadUsers();
-
-        _this3.form.name = '';
-        _this3.form.email = '';
-        _this3.form.type = '';
-        _this3.form.password = '';
-        _this3.title = '';
+        _this3.loadInfos();
       }).catch(function (error) {
         _this3.errors = error.response.data.errors;
 
         _this3.$Progress.fail();
+      });
+    },
+    updateInfo: function updateInfo() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      axios.patch("yarn-Store/".concat(this.form.id), this.$data.form).then(function (response) {
+        _this4.errors = "";
+
+        _this4.$Progress.finish();
+
+        $('#AddNew').modal('hide');
+        Toast.fire({
+          type: 'success',
+          title: 'Yarn Information has been updated'
+        });
+
+        _this4.loadInfos();
+
+        _this4.form.color = '';
+        _this4.form.fiber_content = '';
+        _this4.form.weight = '';
+        _this4.form.yardageORball = '';
+        _this4.form.gauge = '';
+        _this4.form.care = '';
+        _this4.title = '';
+      }).catch(function (error) {
+        _this4.errors = error.response.data.errors;
+
+        _this4.$Progress.fail();
       });
     },
     editModal: function editModal(key) {
@@ -2528,12 +2546,11 @@ __webpack_require__.r(__webpack_exports__);
       this.errors = "";
       this.editmode = true;
       this.title = 'Update Yarn Info';
-      this.form = this.users[key];
+      this.form = this.infos[key];
     },
-    deleteUser: function deleteUser(key, id) {
-      var _this4 = this;
+    deleteInfo: function deleteInfo(key, id) {
+      var _this5 = this;
 
-      // console.log(key,id);
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -2544,11 +2561,11 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
         if (result.value) {
-          axios.delete("api/user/".concat(id));
-          _this4.errors = "";
+          axios.delete("yarn-Store/".concat(id));
+          _this5.errors = "";
           Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
 
-          _this4.loadUsers();
+          _this5.loadInfos();
         }
       });
     }
@@ -59336,19 +59353,21 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.users, function(user, key) {
+                    _vm._l(_vm.infos, function(info, key) {
                       return _c("tr", [
-                        _c("td", [_vm._v(_vm._s(user.id))]),
+                        _c("td", [_vm._v(_vm._s(info.id))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(user.name))]),
+                        _c("td", [_vm._v(_vm._s(info.color))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(user.email))]),
+                        _c("td", [_vm._v(_vm._s(info.fiber_content))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(_vm._f("upText")(user.type)))]),
+                        _c("td", [_vm._v(_vm._s(info.weight))]),
                         _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(_vm._f("myDate")(user.created_at)))
-                        ]),
+                        _c("td", [_vm._v(_vm._s(info.yardageORball))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.gauge))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.care))]),
                         _vm._v(" "),
                         _c("td", [
                           _c(
@@ -59371,7 +59390,7 @@ var render = function() {
                               attrs: { href: "#" },
                               on: {
                                 click: function($event) {
-                                  return _vm.deleteUser(key, user.id)
+                                  return _vm.deleteInfo(key, info.id)
                                 }
                               }
                             },
@@ -59426,7 +59445,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      _vm.editmode ? _vm.updateUser() : _vm.createUser()
+                      _vm.editmode ? _vm.updateInfo() : _vm.createInfo()
                     }
                   }
                 },
@@ -59440,13 +59459,12 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.type,
-                              expression: "form.type"
+                              value: _vm.form.color,
+                              expression: "form.color"
                             }
                           ],
                           staticClass: "form-control",
-                          class: { "is-invalid": _vm.errors.type },
-                          attrs: { name: "type" },
+                          class: { "is-invalid": _vm.errors.color },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -59459,7 +59477,7 @@ var render = function() {
                                 })
                               _vm.$set(
                                 _vm.form,
-                                "type",
+                                "color",
                                 $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
@@ -59486,13 +59504,33 @@ var render = function() {
                           _vm._v(" "),
                           _c("option", { attrs: { value: "9456 Harvest" } }, [
                             _vm._v("9456 Harvest")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "9001 Navy" } }, [
+                            _vm._v("9001 Navy")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "9045 Fern" } }, [
+                            _vm._v("9045 Fern")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "9217 Black" } }, [
+                            _vm._v("9217 Black")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "9389 Grey" } }, [
+                            _vm._v("9389 Grey")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "9598 Wedgewood" } }, [
+                            _vm._v("9598 Wedgewood")
                           ])
                         ]
                       ),
                       _vm._v(" "),
-                      _vm.errors.type
+                      _vm.errors.color
                         ? _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(_vm._s(_vm.errors.type[0]))
+                            _vm._v(_vm._s(_vm.errors.color[0]))
                           ])
                         : _vm._e()
                     ]),
@@ -59503,31 +59541,31 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.name,
-                            expression: "form.name"
+                            value: _vm.form.fiber_content,
+                            expression: "form.fiber_content"
                           }
                         ],
                         staticClass: "form-control",
-                        class: { "is-invalid": _vm.errors.name },
-                        attrs: {
-                          type: "text",
-                          name: "name",
-                          placeholder: "Name"
-                        },
-                        domProps: { value: _vm.form.name },
+                        class: { "is-invalid": _vm.errors.fiber_content },
+                        attrs: { type: "text", placeholder: "Fiber Content" },
+                        domProps: { value: _vm.form.fiber_content },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.form, "name", $event.target.value)
+                            _vm.$set(
+                              _vm.form,
+                              "fiber_content",
+                              $event.target.value
+                            )
                           }
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.name
+                      _vm.errors.fiber_content
                         ? _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(_vm._s(_vm.errors.name[0]))
+                            _vm._v(_vm._s(_vm.errors.fiber_content[0]))
                           ])
                         : _vm._e()
                     ]),
@@ -59538,88 +59576,27 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.email,
-                            expression: "form.email"
+                            value: _vm.form.weight,
+                            expression: "form.weight"
                           }
                         ],
                         staticClass: "form-control",
-                        class: { "is-invalid": _vm.errors.email },
-                        attrs: {
-                          type: "email",
-                          name: "email",
-                          placeholder: "Email Address"
-                        },
-                        domProps: { value: _vm.form.email },
+                        class: { "is-invalid": _vm.errors.weight },
+                        attrs: { type: "text", placeholder: "Yarn weight" },
+                        domProps: { value: _vm.form.weight },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.form, "email", $event.target.value)
+                            _vm.$set(_vm.form, "weight", $event.target.value)
                           }
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.email
+                      _vm.errors.weight
                         ? _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(_vm._s(_vm.errors.email[0]))
-                          ])
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.type,
-                              expression: "form.type"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: { "is-invalid": _vm.errors.type },
-                          attrs: { name: "type" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.form,
-                                "type",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("option", { attrs: { value: "" } }, [
-                            _vm._v("Select User Role")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "admin" } }, [
-                            _vm._v("Admin")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "user" } }, [
-                            _vm._v("Standard User")
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm.errors.type
-                        ? _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(_vm._s(_vm.errors.type[0]))
+                            _vm._v(_vm._s(_vm.errors.weight[0]))
                           ])
                         : _vm._e()
                     ]),
@@ -59630,32 +59607,93 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.form.password,
-                            expression: "form.password"
+                            value: _vm.form.yardageORball,
+                            expression: "form.yardageORball"
                           }
                         ],
                         staticClass: "form-control",
-                        class: { "is-invalid": _vm.errors.password },
-                        attrs: {
-                          type: "password",
-                          autocomplete: "off",
-                          name: "password",
-                          placeholder: "Password"
-                        },
-                        domProps: { value: _vm.form.password },
+                        class: { "is-invalid": _vm.errors.yardageORball },
+                        attrs: { type: "text", placeholder: "Yardage/Ball" },
+                        domProps: { value: _vm.form.yardageORball },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.form, "password", $event.target.value)
+                            _vm.$set(
+                              _vm.form,
+                              "yardageORball",
+                              $event.target.value
+                            )
                           }
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.password
+                      _vm.errors.yardageORball
                         ? _c("div", { staticClass: "invalid-feedback" }, [
-                            _vm._v(_vm._s(_vm.errors.password[0]))
+                            _vm._v(_vm._s(_vm.errors.yardageORball[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.gauge,
+                            expression: "form.gauge"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors.gauge },
+                        attrs: { type: "text", placeholder: "Gauge" },
+                        domProps: { value: _vm.form.gauge },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "gauge", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.gauge
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(_vm._s(_vm.errors.gauge[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.care,
+                            expression: "form.care"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors.care },
+                        attrs: { type: "text", placeholder: "Care" },
+                        domProps: { value: _vm.form.care },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "care", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.care
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(_vm._s(_vm.errors.care[0]))
                           ])
                         : _vm._e()
                     ])

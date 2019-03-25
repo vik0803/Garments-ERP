@@ -24,15 +24,17 @@
               </thead>
 
               <tbody>
-                <tr v-for="user,key in users">
-                  <td>{{ user.id }}</td>
-                  <td>{{ user.name }}</td>
-                  <td>{{ user.email }}</td>
-                  <td>{{ user.type | upText }}</td>
-                  <td>{{ user.created_at | myDate }}</td>
+                <tr v-for="info,key in infos">
+                  <td>{{ info.id }}</td>
+                  <td>{{ info.color }}</td>
+                  <td>{{ info.fiber_content }}</td>
+                  <td>{{ info.weight }}</td>
+                  <td>{{ info.yardageORball }}</td>
+                  <td>{{ info.gauge }}</td>
+                  <td>{{ info.care }}</td>
                   <td>
                     <a href="#" @click="editModal(key)"><i class="fas fa-edit blue"></i></a>
-                    <a href="#" @click="deleteUser(key,user.id)" class="text-danger"><i class="fas fa-trash red"></i></a>
+                    <a href="#" @click="deleteInfo(key,info.id)" class="text-danger"><i class="fas fa-trash red"></i></a>
                   </td>
                 </tr>
               </tbody>
@@ -52,36 +54,41 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form @submit.prevent="editmode ? updateUser() : createUser()">
+          <form @submit.prevent="editmode ? updateInfo() : createInfo()">
             <div class="modal-body">
               <div class="form-group">
-                <select class="form-control" :class="{'is-invalid':errors.type}" name="type" v-model="form.type">
+                <select class="form-control" :class="{'is-invalid':errors.color}" v-model="form.color">
                   <option value="">Select Color</option>
                   <option value="1021 Rainbow's Beginning">1021 Rainbow's Beginning</option>
                   <option value="1025 Pastel Pop">1025 Pastel Pop</option>
                   <option value="9456 Harvest">9456 Harvest</option>
+                  <option value="9001 Navy">9001 Navy</option>
+                  <option value="9045 Fern">9045 Fern</option>
+                  <option value="9217 Black">9217 Black</option>
+                  <option value="9389 Grey">9389 Grey</option>
+                  <option value="9598 Wedgewood">9598 Wedgewood</option>
                 </select>
-                <div v-if="errors.type" class="invalid-feedback">{{ errors.type[0] }}</div>
+                <div v-if="errors.color" class="invalid-feedback">{{ errors.color[0] }}</div>
               </div>
               <div class="form-group">
-                <input type="text" name="name" class="form-control" :class="{'is-invalid':errors.name}" placeholder="Name" v-model="form.name">
-                <div v-if="errors.name" class="invalid-feedback">{{ errors.name[0] }}</div>
+                <input type="text" class="form-control" :class="{'is-invalid':errors.fiber_content}" placeholder="Fiber Content" v-model="form.fiber_content">
+                <div v-if="errors.fiber_content" class="invalid-feedback">{{ errors.fiber_content[0] }}</div>
               </div>
               <div class="form-group">
-                <input type="email" name="email" class="form-control" :class="{'is-invalid':errors.email}" placeholder="Email Address" v-model="form.email">
-                <div v-if="errors.email" class="invalid-feedback">{{ errors.email[0] }}</div>
+                <input type="text" class="form-control" :class="{'is-invalid':errors.weight}" placeholder="Yarn weight" v-model="form.weight">
+                <div v-if="errors.weight" class="invalid-feedback">{{ errors.weight[0] }}</div>
               </div>
               <div class="form-group">
-                <select class="form-control" :class="{'is-invalid':errors.type}" name="type" v-model="form.type">
-                  <option value="">Select User Role</option>
-                  <option value="admin">Admin</option>
-                  <option value="user">Standard User</option>
-                </select>
-                <div v-if="errors.type" class="invalid-feedback">{{ errors.type[0] }}</div>
+                <input type="text" class="form-control" :class="{'is-invalid':errors.yardageORball}" placeholder="Yardage/Ball" v-model="form.yardageORball">
+                <div v-if="errors.yardageORball" class="invalid-feedback">{{ errors.yardageORball[0] }}</div>
               </div>
               <div class="form-group">
-                <input type="password" autocomplete="off" name="password" class="form-control" :class="{'is-invalid':errors.password}" placeholder="Password" v-model="form.password">
-                <div v-if="errors.password" class="invalid-feedback">{{ errors.password[0] }}</div>
+                <input type="text" class="form-control" :class="{'is-invalid':errors.gauge}" placeholder="Gauge" v-model="form.gauge">
+                <div v-if="errors.gauge" class="invalid-feedback">{{ errors.gauge[0] }}</div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" :class="{'is-invalid':errors.care}" placeholder="Care" v-model="form.care">
+                <div v-if="errors.care" class="invalid-feedback">{{ errors.care[0] }}</div>
               </div>
             </div>
             <div class="modal-footer">
@@ -100,12 +107,14 @@
     export default {
       data(){
         return{
-          users:{},
+          infos:{},
           form:{
-            name:'',
-            email:'',
-            type:'',
-            password:''
+            color:'',
+            fiber_content:'',
+            weight:'',
+            yardageORball:'',
+            gauge:'',
+            care:''
           },
           title:'',
           errors:{},
@@ -113,30 +122,32 @@
         }
       },
       mounted() {
-        this.loadUsers();
-        // setInterval(() => this.loadUsers(),3000);
+        this.loadInfos();
+        setInterval(() => this.loadInfos(),3000);
       },
       methods:{
 
-        loadUsers(){
-          axios.get('api/user')
-            .then((response)=> this.users = response.data.data)
+        loadInfos(){
+          axios.get('getYarnStore')
+            .then((response)=> this.infos = response.data.data)
             .catch((error) => this.errors = error.response.data.errors);
         },
 
         OpenModal(){
-          this.form.name='';
-          this.form.email='';
-          this.form.type='';
-          this.form.password='';
+          this.form.color='';
+          this.form.fiber_content='';
+          this.form.weight='';
+          this.form.yardageORball='';
+          this.form.gauge='';
+          this.form.care='';
           this.title='Add New Yarn';
           this.editmode=false;
           $('#AddNew').modal('show');
         },
 
-        createUser(){
+        createInfo(){
           this.$Progress.start()
-          axios.post('api/user',this.$data.form)
+          axios.post('yarn-Store',this.$data.form)
             .then((response)=>{
               this.errors= ""
               this.form= ''
@@ -146,7 +157,7 @@
                 type: 'success',
                 title: 'Yarn Info Created in successfully'
               });
-              this.loadUsers();
+              this.loadInfos();
             })
             .catch((error) => {
               this.errors = error.response.data.errors
@@ -154,22 +165,24 @@
             });
         },
 
-        updateUser(){
+        updateInfo(){
           this.$Progress.start()
-          axios.patch(`api/user/${this.form.id}`,this.$data.form)
+          axios.patch(`yarn-Store/${this.form.id}`,this.$data.form)
             .then((response) => {
               this.errors=""
               this.$Progress.finish()
               $('#AddNew').modal('hide');
               Toast.fire({
                 type: 'success',
-                title: 'Information has been updated'
+                title: 'Yarn Information has been updated'
               });
-              this.loadUsers();
-              this.form.name='';
-              this.form.email='';
-              this.form.type='';
-              this.form.password='';
+              this.loadInfos();
+              this.form.color='';
+              this.form.fiber_content='';
+              this.form.weight='';
+              this.form.yardageORball='';
+              this.form.gauge='';
+              this.form.care='';
               this.title='';
             })
             .catch((error) => {
@@ -182,11 +195,10 @@
           this.errors= "";
           this.editmode=true;
           this.title='Update Yarn Info'
-          this.form=this.users[key];
+          this.form=this.infos[key];
         },
 
-        deleteUser(key,id){
-          // console.log(key,id);
+        deleteInfo(key,id){
           Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -197,14 +209,14 @@
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.value) {
-              axios.delete(`api/user/${id}`)
+              axios.delete(`yarn-Store/${id}`)
               this.errors= "";
               Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',
                 'success'
               );
-              this.loadUsers();
+              this.loadInfos();
             }
           })
         }

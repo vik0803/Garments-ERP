@@ -25,5 +25,6 @@ Route::resource('gate-Entry','GateEntryController');
 Route::get('getGateEntry','GateEntryController@getGateEntry');
 
 Route::resource('yarn-Store','YarnStoreController');
+Route::get('getYarnStore','YarnStoreController@getYarnStore');
 
 Route::get('{path}','HomeController@index')->where('path','[A-Za-z]+');
