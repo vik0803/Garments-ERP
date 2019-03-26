@@ -29,8 +29,23 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isAdmin',function($user){
           return $user->type === 'admin';
         });
-        Gate::define('isUser',function($user){
-          return $user->type === 'user';
+        Gate::define('isGateEntry',function($user){
+          return $user->type === 'gateEntry';
+        });
+        Gate::define('isYarnStore',function($user){
+          return $user->type === 'yarnStore';
+        });
+        Gate::define('isGreyFabric',function($user){
+          return $user->type === 'greyFabric';
+        });
+        Gate::define('isFinishFabric',function($user){
+          return $user->type === 'finishFabric';
+        });
+        Gate::define('isDyesAndChemical',function($user){
+          return $user->type === 'dyesAndchemical';
+        });
+        Gate::define('isTrimsStore',function($user){
+          return $user->type === 'trimsStore';
         });
 
         Passport::routes();

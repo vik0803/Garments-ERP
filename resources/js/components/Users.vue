@@ -64,7 +64,12 @@
                 <select class="form-control" :class="{'is-invalid':errors.type}" name="type" v-model="form.type">
                   <option value="">Select User Role</option>
                   <option value="admin">Admin</option>
-                  <option value="user">Standard User</option>
+                  <option value="gateEntry">Gate Entry</option>
+                  <option value="yarnStore">Yarn Store</option>
+                  <option value="greyFabric">Grey Fabric</option>
+                  <option value="finishFabric">Finish Fabric</option>
+                  <option value="dyesAndchemical">Dyes and Chemical</option>
+                  <option value="trimsStore">Trims Store</option>
                 </select>
                 <div v-if="errors.type" class="invalid-feedback">{{ errors.type[0] }}</div>
               </div>

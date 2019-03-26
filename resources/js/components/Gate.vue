@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row justify-content-center mt-3">
         <div class="col-12">
-          <div class="card" v-if="$gate.isAdmin() || $gate.isUser()">
+          <div class="card" v-if="$gate.isAdmin() || $gate.isGateEntry()">
             <div class="card-header">
               <h3 class="card-title text-center">Gate Entry</h3>
             </div>

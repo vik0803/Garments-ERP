@@ -2217,6 +2217,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -57864,26 +57869,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _vm.$gate.isAdmin() || _vm.$gate.isDyesAndChemical()
+    ? _c("div", { staticClass: "container" }, [_vm._m(0)])
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Dyes and chemical Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an Dyes and chemical component.\n                "
-              )
-            ])
+    return _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Dyes and chemical Component")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v(
+              "\n                    I'm an Dyes and chemical component.\n                "
+            )
           ])
         ])
       ])
@@ -58455,26 +58460,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _vm.$gate.isAdmin() || _vm.$gate.isFinishFabric()
+    ? _c("div", { staticClass: "container" }, [_vm._m(0)])
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v(" Finish Fabric Store Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an Finish Fabric Store  component.\n                "
-              )
-            ])
+    return _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v(" Finish Fabric Store Component")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v(
+              "\n                    I'm an Finish Fabric Store  component.\n                "
+            )
           ])
         ])
       ])
@@ -58505,7 +58510,7 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center mt-3" }, [
       _c("div", { staticClass: "col-12" }, [
-        _vm.$gate.isAdmin() || _vm.$gate.isUser()
+        _vm.$gate.isAdmin() || _vm.$gate.isGateEntry()
           ? _c("div", { staticClass: "card" }, [
               _vm._m(0),
               _vm._v(" "),
@@ -58868,26 +58873,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _vm.$gate.isAdmin() || _vm.$gate.isGreyFabric()
+    ? _c("div", { staticClass: "container" }, [_vm._m(0)])
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Grey Fabric Store Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an Grey Fabric Store component.\n                "
-              )
-            ])
+    return _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Grey Fabric Store Component")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v(
+              "\n                    I'm an Grey Fabric Store component.\n                "
+            )
           ])
         ])
       ])
@@ -58915,26 +58920,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _vm.$gate.isAdmin() || _vm.$gate.isTrimsStore()
+    ? _c("div", { staticClass: "container" }, [_vm._m(0)])
+    : _vm._e()
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("trims store Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an trims store component.\n                "
-              )
-            ])
+    return _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("trims store Component")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v(
+              "\n                    I'm an trims store component.\n                "
+            )
           ])
         ])
       ])
@@ -59202,8 +59207,30 @@ var render = function() {
                             _vm._v("Admin")
                           ]),
                           _vm._v(" "),
-                          _c("option", { attrs: { value: "user" } }, [
-                            _vm._v("Standard User")
+                          _c("option", { attrs: { value: "gateEntry" } }, [
+                            _vm._v("Gate Entry")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "yarnStore" } }, [
+                            _vm._v("Yarn Store")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "greyFabric" } }, [
+                            _vm._v("Grey Fabric")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "finishFabric" } }, [
+                            _vm._v("Finish Fabric")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "option",
+                            { attrs: { value: "dyesAndchemical" } },
+                            [_vm._v("Dyes and Chemical")]
+                          ),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "trimsStore" } }, [
+                            _vm._v("Trims Store")
                           ])
                         ]
                       ),
@@ -59368,7 +59395,7 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center mt-3" }, [
       _c("div", { staticClass: "col-12" }, [
-        _vm.$gate.isAdmin()
+        _vm.$gate.isAdmin() || _vm.$gate.isYarnStore()
           ? _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header" }, [
                 _c("h3", { staticClass: "card-title text-center" }, [
@@ -74654,9 +74681,34 @@ function () {
       return this.user.type === 'admin';
     }
   }, {
-    key: "isUser",
-    value: function isUser() {
-      return this.user.type === 'user';
+    key: "isGateEntry",
+    value: function isGateEntry() {
+      return this.user.type === 'gateEntry';
+    }
+  }, {
+    key: "isYarnStore",
+    value: function isYarnStore() {
+      return this.user.type === 'yarnStore';
+    }
+  }, {
+    key: "isGreyFabric",
+    value: function isGreyFabric() {
+      return this.user.type === 'greyFabric';
+    }
+  }, {
+    key: "isFinishFabric",
+    value: function isFinishFabric() {
+      return this.user.type === 'finishFabric';
+    }
+  }, {
+    key: "isDyesAndChemical",
+    value: function isDyesAndChemical() {
+      return this.user.type === 'dyesAndchemical';
+    }
+  }, {
+    key: "isTrimsStore",
+    value: function isTrimsStore() {
+      return this.user.type === 'trimsStore';
     }
   }]);
 

@@ -3,7 +3,7 @@
 
     <div class="row justify-content-center mt-3">
       <div class="col-12">
-        <div class="card" v-if="$gate.isAdmin()">
+        <div class="card" v-if="$gate.isAdmin() || $gate.isYarnStore()">
           <div class="card-header">
             <h3 class="card-title text-center">Yarn Store</h3>
               <button type="button" class="btn btn-success" @click="OpenModal"> Add New Yarn <i class="fab fa-yarn"></i><i class="fas fa-plus-circle"></i></button>
