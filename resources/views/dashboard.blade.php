@@ -162,14 +162,16 @@
 
       <div class="card">
         <h4 class="card-header font-weight-bold"><i class="fas fa-file-alt"></i> Report</h4>
+
         <div class="card-body">
-          <form>
+          <form action="{{ route('report.pdf') }}" method="post">
+            {{ csrf_field() }}
             <div class="form-inline">
               <div class="form-group col-md-2">
                 <label for="month">Select Month</label>
               </div>
-              <select class="form-control col-md-3" id="month">
-                <option selected>Choose...</option>
+              <select class="form-control col-md-3" name="month" required id="month">
+                <option >Choose...</option>
                 <option value="01">January</option>
                 <option value="02">February </option>
                 <option value="03">March </option>
@@ -183,11 +185,11 @@
                 <option value="11">November </option>
                 <option value="12">December </option>
               </select>
+              {{-- <div class="form-group col-md-2">
+                <button type="submit" class="btn btn-outline-dark">Report Generate</button>
+              </div> --}}
               <div class="form-group col-md-2">
-                <a href="#" class="btn btn-outline-dark">Report Generate</a>
-              </div>
-              <div class="form-group col-md-2">
-                <a href="" class="btn btn-outline-success">Download</a>
+                <button type="submit" class="btn btn-outline-success">Download</button>
               </div>
             </div>
           </form>

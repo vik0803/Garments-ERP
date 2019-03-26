@@ -23,6 +23,7 @@ Route::get('inventory','HomeController@index')->name('inventory');
 Route::get('dashboard',function(){
   return view('dashboard');
 })->name('dashboard');
+Route::post('report','HomeController@reportPDF')->name('report.pdf');
 
 Route::resource('gate-Entry','GateEntryController');
 Route::get('getGateEntry','GateEntryController@getGateEntry');
