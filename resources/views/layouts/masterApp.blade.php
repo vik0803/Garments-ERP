@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="icon"  href="{{ asset('img/icon.png')}}">
+  <link rel="shortcut icon" type="image/png" href="{{ asset('img/icon.png')}}">
 	<meta name="author" content="Golam Sorwar">
 	<meta name="description" content="Online Garments ERP System">
 	<meta name="keywords" content="Garments ERP,Inventory">
@@ -39,7 +39,7 @@
         <div class="container main-menu">
           <div class="row align-items-center justify-content-between d-flex">
             <div id="logo">
-              <a href="{{ url('/') }}"><img src="{{asset('img/logo.png')}}" alt="" title="" height="25" width="130"></a>
+              <a href="{{ url('/') }}"><img src="{{asset('img/logo.png')}}" style="height:25px;width:130px;"></a>
             </div>
             {{-- <Myheader></Myheader> --}}
             <nav id="nav-menu-container">
@@ -47,7 +47,6 @@
                 <li><a href="#">Library</a></li>
                 <li><a href="#">Merchandising</a></li>
                 <li><a href="#">Planning</a></li>
-                <li><a href="#">Commercial</a> </li>
                 <li class="menu-active"><a href="{{ route('inventory') }}">Inventory</a></li>
                 <li><a href="#">Production</a></li>
                 <li><a href="#">Accounting</a></li>
@@ -67,7 +66,7 @@
               <div class="single-footer-widget">
                 <h6>About Us</h6>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
                 <p class="footer-text">
                   Copyright &copy; @php echo date('Y') @endphp All rights reserved | Garments ERP
@@ -75,21 +74,7 @@
               </div>
             </div>
             <div class="col-lg-5  col-md-6 col-sm-6">
-              <div class="single-footer-widget">
-                <h6>Newsletter</h6>
-                <p>Stay update with our latest</p>
-                <div class="">
-                  <form novalidate="true" action="#" method="get" class="form-inline">
-                    <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
-                    <button class="click-btn btn btn-default"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
-                    <div style="position: absolute; left: -5000px;">
-                      <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-                    </div>
 
-                    <div class="info"></div>
-                  </form>
-                </div>
-              </div>
             </div>
             <div class="col-lg-2 col-md-6 col-sm-6 social-widget">
               <div class="single-footer-widget">
