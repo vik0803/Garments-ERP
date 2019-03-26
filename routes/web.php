@@ -20,6 +20,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('inventory','HomeController@index')->name('inventory');
+Route::get('dashboard',function(){
+  return view('dashboard');
+})->name('dashboard');
 
 Route::resource('gate-Entry','GateEntryController');
 Route::get('getGateEntry','GateEntryController@getGateEntry');
