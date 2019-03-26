@@ -19,8 +19,6 @@
         <router-link to="/finish-fabric-store" class="nav-link" data-toggle="pill"><i class="fas fa-store red"></i> Finish Fabric Store</router-link>
         <router-link to="/dyes-and-chemical-store" class="nav-link" data-toggle="pill"><i class="far fa-object-group "></i> Dyes and Chemical Store</router-link>
         <router-link to="/trims-store" class="nav-link" data-toggle="pill"><i class="fas fa-stream teal"></i> Trims Store</router-link>
-        {{-- <router-link to="/general-store" class="nav-link" data-toggle="pill"><i class="fas fa-store green"></i> General Store</router-link> --}}
-        <router-link to="/report" class="nav-link" data-toggle="pill">Report</router-link>
         @endcan
       </div>
     </div>
