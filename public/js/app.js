@@ -74714,10 +74714,10 @@ var routes = [{
   path: '/users',
   component: Users
 }, {
-  path: '/dyes-and-chemical-store',
+  path: '/dyesAndchemical',
   component: Dyes
 }, {
-  path: '/trims-store',
+  path: '/trimsStore',
   component: Trims
 }, {
   path: '/gateEntry',
@@ -74726,10 +74726,10 @@ var routes = [{
   path: '/yarnStore',
   component: Yarn
 }, {
-  path: '/grey-fabric-store',
+  path: '/greyFabric',
   component: Grey
 }, {
-  path: '/finish-fabric-store',
+  path: '/finishFabric',
   component: Finish
 }, {
   path: '*',

@@ -22,12 +22,12 @@ let Finish =require('./components/Finish.vue').default;
 
 const routes = [
   { path: '/users', component: Users},
-  { path: '/dyes-and-chemical-store', component: Dyes },
-  { path: '/trims-store', component: Trims },
+  { path: '/dyesAndchemical', component: Dyes },
+  { path: '/trimsStore', component: Trims },
   { path: '/gateEntry', component: Gate },
   { path: '/yarnStore', component: Yarn },
-  { path: '/grey-fabric-store', component: Grey },
-  { path: '/finish-fabric-store', component: Finish },
+  { path: '/greyFabric', component: Grey },
+  { path: '/finishFabric', component: Finish },
   { path: '*', component: require('./components/Error.vue').default },
   { path: '/dashboard', component: require('./components/Empty.vue').default }
 ]
