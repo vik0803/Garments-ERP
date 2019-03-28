@@ -40,19 +40,17 @@ class HomeController extends Controller
         ]);
 
         if ($request->has('month')) {
-          $data=GateEntry::whereRaw('MONTH(created_at)',$request->month)->get();
-          // $pdf = PDF::loadView('report', compact('data'));
-          // return $pdf->stream('report.pdf');
+          $data=GateEntry::whereRaw('MONTH(created_at) = ?',[$request->month])->get();
+          if ($data->isNotEmpty()) {
+            // $pdf = PDF::loadView('report', compact('data'));
+            // return $pdf->stream('report.pdf');
 
-          $pdf = PDF::loadView('report', compact('data'));
-          return $pdf->download('report.pdf');
+            $pdf = PDF::loadView('report', compact('data'));
+            return $pdf->download('report.pdf');
+          }
+          session()->flash('Message','Report not available');
+          return redirect('home');
         }
-
-        redirect()->back();
-
-
-
-
 
 
     }

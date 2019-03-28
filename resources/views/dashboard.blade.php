@@ -162,6 +162,10 @@
       <div class="card">
         <h4 class="card-header font-weight-bold"><i class="fas fa-file-alt"></i> Report</h4>
         <div class="card-body">
+          @if (session()->has('Message'))
+            <div class="alert alert-danger" role="alert">{{ session()->get('Message') }}</div>
+          @endif
+          {{-- <form action="{{ route('report.pdf') }}" method="post" target="_blank"> --}}
           <form action="{{ route('report.pdf') }}" method="post">
             {{ csrf_field() }}
             <div class="form-inline">
