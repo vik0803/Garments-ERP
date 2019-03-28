@@ -47,7 +47,7 @@
                 <li><a href="#">Library</a></li>
                 <li><a href="#">Merchandising</a></li>
                 <li><a href="#">Planning</a></li>
-                <li class="menu-active"><a href="{{ route('inventory') }}">Inventory</a></li>
+                <li class="menu-active"><a href="{{ route('home') }}">Inventory</a></li>
                 <li><a href="#">Production</a></li>
                 <li><a href="#">Accounting</a></li>
               </ul>

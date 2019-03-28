@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\GateEntry;
 use PDF;
+use App\User;
+use App\YarnStore;
 
 class HomeController extends Controller
 {
@@ -25,13 +27,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $userinfo=User::all();
+        $gateinfo=GateEntry::all();
+        $yarninfo=YarnStore::all();
+        return view('dashboard',compact('userinfo','gateinfo','yarninfo'));
     }
 
     public function reportPDF(Request $request)
     {
+        $this->validate($request,[
+          'month' => 'required'
+        ]);
+
         if ($request->has('month')) {
-          $data=GateEntry::whereRaw('MONTH(created_at) = ?',[$request->month])->get();
+          $data=GateEntry::whereRaw('MONTH(created_at)',$request->month)->get();
           // $pdf = PDF::loadView('report', compact('data'));
           // return $pdf->stream('report.pdf');
 

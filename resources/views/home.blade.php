@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="row">
+  <div class="row" style="margin-right: 0px;">
     <div class="col-2">
       <div class="nav flex-column nav-pills text-left" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         @if(Gate::check('isAdmin'))
-          <a class="nav-link active"  href="{{ route('dashboard') }}"><i class="fas fa-home"></i> Dashboard</a>
+          <a class="nav-link active"  href="{{ route('home') }}"><i class="fas fa-home"></i> Home</a>
           <router-link to="/users" class="nav-link" data-toggle="pill"><i class="fas fa-users nav-icon"></i> Users</router-link>
         @endif  @if(Gate::check('isAdmin') || Gate::check('isGateEntry'))
           <router-link to="/gateEntry" class="nav-link" data-toggle="pill"><i class="fas fa-torii-gate orange"></i> Gate Entry</router-link>
@@ -24,15 +24,12 @@
     </div>
     <div class="col-10" >
       <div class="tab-content" id="v-pills-tabContent">
-
-            <router-view></router-view>
-            <vue-progress-bar></vue-progress-bar>
-
-            @if (Request::is('dashboard'))
-              @yield('dash')
-            @endif
-
-
+          @if (url()->current() == route('home'))
+            @yield('dash')
+          @else
+                <router-view></router-view>
+                <vue-progress-bar></vue-progress-bar>
+          @endif
       </div>
     </div>
   </div>

@@ -28,8 +28,7 @@ const routes = [
   { path: '/yarnStore', component: Yarn },
   { path: '/greyFabric', component: Grey },
   { path: '/finishFabric', component: Finish },
-  { path: '*', component: require('./components/Error.vue').default },
-  { path: '/dashboard', component: require('./components/Empty.vue').default }
+  { path: '*', component: require('./components/Error.vue').default }
 ]
 
 Vue.component('Error', require('./components/Error.vue').default);
