@@ -6,7 +6,7 @@
       <div class="nav flex-column nav-pills text-left" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         @if(Gate::check('isAdmin'))
           <a class="nav-link active"  href="{{ route('dashboard') }}"><i class="fas fa-home"></i> Dashboard</a>
-          <router-link to="/users" class="nav-link" data-toggle="pill"><i class="fas fa-users nav-icon"></i> Usres</router-link>
+          <router-link to="/users" class="nav-link" data-toggle="pill"><i class="fas fa-users nav-icon"></i> Users</router-link>
         @endif  @if(Gate::check('isAdmin') || Gate::check('isGateEntry'))
           <router-link to="/gateEntry" class="nav-link" data-toggle="pill"><i class="fas fa-torii-gate orange"></i> Gate Entry</router-link>
         @endif  @if(Gate::check('isAdmin') || Gate::check('isYarnStore'))
