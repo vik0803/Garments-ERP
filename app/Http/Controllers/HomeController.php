@@ -40,7 +40,7 @@ class HomeController extends Controller
         ]);
 
         if ($request->has('month')) {
-          $data=GateEntry::whereRaw('MONTH(created_at) = ?',[$request->month])->get();
+          $data=GateEntry::whereMonth('created_at',$request->month)->get();
           if ($data->isNotEmpty()) {
             // $pdf = PDF::loadView('report', compact('data'));
             // return $pdf->stream('report.pdf');

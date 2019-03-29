@@ -117,7 +117,13 @@ class YarnStoreController extends Controller
     public function search(Request $request){
         if ($search = $request->get('query')) {
 
-            return YarnStore::where('fiber_content','like','%'.$search.'%')->paginate(5);
+            return YarnStore::where('color','like','%'.$search.'%')
+                            ->orWhere('fiber_content','like','%'.$search.'%')
+                            ->orWhere('weight','like','%'.$search.'%')
+                            ->orWhere('yardageORball','like','%'.$search.'%')
+                            ->orWhere('gauge','like','%'.$search.'%')
+                            ->orWhere('care','like','%'.$search.'%')
+                            ->paginate(8);
 
         }else {
           return YarnStore::paginate();

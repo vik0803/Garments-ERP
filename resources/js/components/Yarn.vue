@@ -131,22 +131,22 @@
       },
 
       mounted() {
-            let searchit = true;
-            if (searchit) {
-              Fire.$on('searching',() => {
-                  let query = this.search;
-                  axios.get('/findyarn?query=' + query)
-                  .then((response) => {
-                      this.infos = response.data.data
-                  })
-                  .catch(() => {
-                  })
-              }),
-              this.loadInfos();
-            }else {
-              this.loadInfos();
-              setInterval(() => this.loadInfos(),3000);
-            }
+          let searchit = true;
+          if (searchit) {
+            Fire.$on('searching',() => {
+                let query = this.search;
+                axios.get('/findyarn?query=' + query)
+                .then((response) => {
+                    this.infos = response.data.data
+                })
+                .catch(() => {
+                })
+            }),
+            this.loadInfos();
+          }else {
+            this.loadInfos();
+            setInterval(() => this.loadInfos(),3000);
+          }
       },
       methods:{
 
