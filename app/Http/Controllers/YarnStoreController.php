@@ -111,6 +111,6 @@ class YarnStoreController extends Controller
 
     public function getYarnStore()
     {
-        return YarnStore::paginate(15);
+        return YarnStore::paginate();
     }
 }

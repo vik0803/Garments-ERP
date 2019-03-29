@@ -136,10 +136,15 @@
           axios.post('api/user',this.$data.form)
             .then((response)=>{
               this.errors= ""
-              this.form= ''
+              this.form.name='';
+              this.form.email='';
+              this.form.type='';
+              this.form.password='';
+              this.title='';
               this.$Progress.finish()
               // Fire.$emit('AfterCreated');
               $('#AddNew').modal('hide');
+              this.editmode=false;
               Toast.fire({
                 type: 'success',
                 title: 'User Created in successfully'

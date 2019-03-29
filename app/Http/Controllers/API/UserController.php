@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
       if (Gate::allows('isAdmin')) {
-          return User::paginate(10);
+          return User::paginate();
       }
     }
 

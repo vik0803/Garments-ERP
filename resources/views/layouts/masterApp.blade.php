@@ -30,7 +30,7 @@
               </div>
               <div class="col-lg-6 col-sm-6 col-8 header-top-right no-padding">
                 <a href="tel:+880 1687922145">+880 1687922145</a>
-                <a href="mailto:info@golamsorwar.xyz">info@golamsorwar.xyz</a>
+                <a href="mailto:erp@golamsorwar.xyz">erp@golamsorwar.xyz</a>
               </div>
             </div>
           </div>

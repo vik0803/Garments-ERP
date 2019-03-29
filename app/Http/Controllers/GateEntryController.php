@@ -19,7 +19,7 @@ class GateEntryController extends Controller
      */
     public function index()
     {
-        return GateEntry::paginate(10);
+        return GateEntry::paginate();
     }
 
     /**
@@ -113,6 +113,6 @@ class GateEntryController extends Controller
 
     public function getGateEntry()
     {
-        return GateEntry::paginate(10);
+        return GateEntry::paginate();
     }
 }

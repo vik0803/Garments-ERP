@@ -150,7 +150,13 @@
           axios.post('yarn-Store',this.$data.form)
             .then((response)=>{
               this.errors= ""
-              this.form= ''
+              this.form.color='';
+              this.form.fiber_content='';
+              this.form.weight='';
+              this.form.yardageORball='';
+              this.form.gauge='';
+              this.form.care='';
+              this.title='';
               this.$Progress.finish()
               $('#AddNew').modal('hide');
               Toast.fire({

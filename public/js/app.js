@@ -2253,12 +2253,17 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
       axios.post('api/user', this.$data.form).then(function (response) {
         _this3.errors = "";
-        _this3.form = '';
+        _this3.form.name = '';
+        _this3.form.email = '';
+        _this3.form.type = '';
+        _this3.form.password = '';
+        _this3.title = '';
 
         _this3.$Progress.finish(); // Fire.$emit('AfterCreated');
 
 
         $('#AddNew').modal('hide');
+        _this3.editmode = false;
         Toast.fire({
           type: 'success',
           title: 'User Created in successfully'
@@ -2499,7 +2504,13 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
       axios.post('yarn-Store', this.$data.form).then(function (response) {
         _this3.errors = "";
-        _this3.form = '';
+        _this3.form.color = '';
+        _this3.form.fiber_content = '';
+        _this3.form.weight = '';
+        _this3.form.yardageORball = '';
+        _this3.form.gauge = '';
+        _this3.form.care = '';
+        _this3.title = '';
 
         _this3.$Progress.finish();
 

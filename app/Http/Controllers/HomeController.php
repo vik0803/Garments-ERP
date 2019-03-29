@@ -47,6 +47,7 @@ class HomeController extends Controller
 
             $pdf = PDF::loadView('report', compact('data'));
             return $pdf->download('report.pdf');
+            redirect()->back();
           }
           session()->flash('Message','Report not available');
           return redirect('home');
