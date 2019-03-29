@@ -8,8 +8,8 @@
             <h3 class="card-title text-center">Yarn Store</h3>
             <div class="row">
               <button type="button" class="btn btn-success col-md-2" @click="OpenModal"> Add New Yarn <i class="fab fa-yarn"></i><i class="fas fa-plus-circle"></i></button>
-              <div class="col-md-7"></div>
-              <div class="form-inline col-md-3 ">
+              <div class="col-md-6"></div>
+              <div class="form-inline col-md-4 ">
                 <input class=" searchbox" @keyup="searchit" v-model="search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-info sboxbtn" @click="searchit"><i class="fas fa-search white"></i></button>
               </div>
@@ -143,6 +143,7 @@
                 })
             }),
             this.loadInfos();
+            setInterval(() => this.loadInfos(),12000);
           }else {
             this.loadInfos();
             setInterval(() => this.loadInfos(),3000);

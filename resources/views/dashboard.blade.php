@@ -158,7 +158,7 @@
       </div>
     </div>
 
-
+    @can ('isAdmin')
       <div class="card">
         <h4 class="card-header font-weight-bold"><i class="fas fa-file-alt"></i> Report</h4>
         <div class="card-body">
@@ -204,7 +204,7 @@
           </form>
         </div>
       </div>
-
+    @endcan
   </div>
 
 @endsection

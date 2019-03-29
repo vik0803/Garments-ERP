@@ -2489,6 +2489,9 @@ __webpack_require__.r(__webpack_exports__);
           _this.infos = response.data.data;
         }).catch(function () {});
       }), this.loadInfos();
+      setInterval(function () {
+        return _this.loadInfos();
+      }, 12000);
     } else {
       this.loadInfos();
       setInterval(function () {
@@ -59451,9 +59454,9 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-7" }),
+                  _c("div", { staticClass: "col-md-6" }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-inline col-md-3 " }, [
+                  _c("div", { staticClass: "form-inline col-md-4 " }, [
                     _c("input", {
                       directives: [
                         {

@@ -23,14 +23,14 @@
       </div>
     </div>
     <div class="col-10" >
-      <div class="tab-content" id="v-pills-tabContent">
-          @if (url()->current() == route('home'))
-            @yield('dash')
-          @else
-                <router-view></router-view>
-                <vue-progress-bar></vue-progress-bar>
-          @endif
-      </div>
+      @if (url()->current() == route('home'))
+        @yield('dash')
+      @else
+        <div class="tab-content" id="v-pills-tabContent">
+            <router-view></router-view>
+            <vue-progress-bar></vue-progress-bar>
+        </div>
+      @endif
     </div>
   </div>
 
