@@ -41,3 +41,23 @@
   width: 3rem;
   height: 3rem;
 }
+
+.searchbox{
+  border: 2px solid cadetblue;
+  border-radius: 50rem;
+  padding-left: 1rem;
+  color: black;
+  font-size: 20px;
+  overflow: hidden;
+}
+
+.sboxbtn{
+  border-radius: 50%;
+  margin-left: -35px;
+  font-size: 17px;
+  height: 2rem;
+  min-width: 2rem;
+  width: 2rem;
+  padding: 0;
+  overflow: hidden;
+}

@@ -19,9 +19,7 @@ Route::get('/',function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('dashboard',function(){
-//   return view('dashboard');
-// })->name('dashboard');
+
 Route::post('report','HomeController@reportPDF')->name('report.pdf');
 
 Route::resource('gate-Entry','GateEntryController');
@@ -29,5 +27,6 @@ Route::get('getGateEntry','GateEntryController@getGateEntry');
 
 Route::resource('yarn-Store','YarnStoreController');
 Route::get('getYarnStore','YarnStoreController@getYarnStore');
+Route::get('findyarn', 'YarnStoreController@search');
 
 Route::get('{path}','HomeController@index')->where('path','[A-Za-z]+');

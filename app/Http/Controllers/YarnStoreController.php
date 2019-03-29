@@ -113,4 +113,14 @@ class YarnStoreController extends Controller
     {
         return YarnStore::paginate();
     }
+
+    public function search(Request $request){
+        if ($search = $request->get('query')) {
+
+            return YarnStore::where('fiber_content','like','%'.$search.'%')->paginate(5);
+
+        }else {
+          return YarnStore::paginate();
+        }
+    }
 }

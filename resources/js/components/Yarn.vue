@@ -6,7 +6,14 @@
         <div class="card" v-if="$gate.isAdmin() || $gate.isYarnStore()">
           <div class="card-header">
             <h3 class="card-title text-center">Yarn Store</h3>
-              <button type="button" class="btn btn-success" @click="OpenModal"> Add New Yarn <i class="fab fa-yarn"></i><i class="fas fa-plus-circle"></i></button>
+            <div class="row">
+              <button type="button" class="btn btn-success col-md-2" @click="OpenModal"> Add New Yarn <i class="fab fa-yarn"></i><i class="fas fa-plus-circle"></i></button>
+              <div class="col-md-7"></div>
+              <div class="form-inline col-md-3 ">
+                <input class=" searchbox" @keyup="searchit" v-model="search" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-info sboxbtn" @click="searchit"><i class="fas fa-search white"></i></button>
+              </div>
+            </div>
           </div>
           <div class="card-body table-responsive p-0">
             <table class="table table-hover">
@@ -118,12 +125,28 @@
           },
           title:'',
           errors:{},
+          search: '',
           editmode:false
         }
       },
+
       mounted() {
-        this.loadInfos();
-        setInterval(() => this.loadInfos(),3000);
+            let searchit = true;
+            if (searchit) {
+              Fire.$on('searching',() => {
+                  let query = this.search;
+                  axios.get('/findyarn?query=' + query)
+                  .then((response) => {
+                      this.infos = response.data.data
+                  })
+                  .catch(() => {
+                  })
+              }),
+              this.loadInfos();
+            }else {
+              this.loadInfos();
+              setInterval(() => this.loadInfos(),3000);
+            }
       },
       methods:{
 
@@ -131,6 +154,10 @@
           axios.get('getYarnStore')
             .then((response)=> this.infos = response.data.data)
             .catch((error) => this.errors = error.response.data.errors);
+        },
+
+        searchit() {
+            Fire.$emit('searching');
         },
 
         OpenModal(){
