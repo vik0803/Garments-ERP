@@ -29,4 +29,8 @@ Route::resource('yarn-Store','YarnStoreController');
 Route::get('getYarnStore','YarnStoreController@getYarnStore');
 Route::get('findyarn', 'YarnStoreController@search');
 
+Route::resource('grey-Fabric','GreyFabricController');
+Route::get('getGreyFabric','GreyFabricController@getGreyFabric');
+Route::get('findGreyFabric', 'GreyFabricController@search');
+
 Route::get('{path}','HomeController@index')->where('path','[A-Za-z]+');
