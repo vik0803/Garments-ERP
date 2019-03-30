@@ -17,9 +17,10 @@
           <router-link to="/finishFabric" class="nav-link" data-toggle="pill"><i class="fas fa-store red"></i> Finish Fabric Store</router-link>
         @endif  @if(Gate::check('isAdmin') || Gate::check('isDyesAndChemical'))
           <router-link to="/dyesAndchemical" class="nav-link" data-toggle="pill"><i class="far fa-object-group "></i> Dyes and Chemical Store</router-link>
-        @endif  @if(Gate::check('isAdmin') || Gate::check('isTrimsStore'))
-          <router-link to="/trimsStore" class="nav-link" data-toggle="pill"><i class="fas fa-stream teal"></i> Trims Store</router-link>
         @endif
+        {{-- @if(Gate::check('isAdmin') || Gate::check('isTrimsStore'))
+          <router-link to="/trimsStore" class="nav-link" data-toggle="pill"><i class="fas fa-stream teal"></i> Trims Store</router-link>
+        @endif --}}
       </div>
     </div>
     <div class="col-10" >

@@ -3,7 +3,7 @@
 @section('dash')
   <div class="container-fluid dashboard-container">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div class="card card-stats mb-4">
           <div class="card-body">
             <div class="row">
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div class="card card-stats mb-4">
           <div class="card-body">
             <div class="row">
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div class="card card-stats mb-4">
           <div class="card-body">
             <div class="row">
@@ -68,28 +68,6 @@
           </div>
         </div>
       </div>
-
-      <div class="col-sm-3">
-        <div class="card card-stats mb-4">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h6 class="card-title text-uppercase mb-2 font-weight-bold text-muted">Trims Store</h6>
-                <span class="h4 font-weight-bold mb-0">{{ $yarninfo->count() }}</span>
-              </div>
-              <div class="col-auto">
-                <div class="icon icon-shape bg-primary text-white rounded-circle shadow">
-                  <i class="fas fa-stream"></i>
-                </div>
-              </div>
-            </div>
-            <p class="mt-3 mb-0 text-muted text-sm">
-              <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 1%</span>
-              <span class="text-nowrap">Since last month</span>
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="row">
@@ -99,7 +77,7 @@
             <div class="row">
               <div class="col">
                 <h6 class="card-title text-uppercase mb-2 font-weight-bold text-muted">Gray Fabric Store</h6>
-                <span class="h4 font-weight-bold mb-0">{{ $yarninfo->count() }}</span>
+                <span class="h4 font-weight-bold mb-0">{{ $greyinfo->count() }}</span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -120,7 +98,7 @@
             <div class="row">
               <div class="col">
                 <h6 class="card-title text-uppercase mb-2 font-weight-bold text-muted">Finish Fabric Store</h6>
-                <span class="h4 font-weight-bold mb-0">{{ $yarninfo->count() }}</span>
+                <span class="h4 font-weight-bold mb-0">{{ $finishinfo->count() }}</span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -141,7 +119,7 @@
             <div class="row">
               <div class="col">
                 <h6 class="card-title text-uppercase mb-2 font-weight-bold text-muted">Dyes and chemical Store</h6>
-                <span class="h4 font-weight-bold mb-0">{{ $yarninfo->count() }}</span>
+                <span class="h4 font-weight-bold mb-0">{{ $dyesinfo->count() }}</span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
