@@ -7,9 +7,12 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\DyeChemical' => $baseDir . '/app/DyeChemical.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\FinishFabric' => $baseDir . '/app/FinishFabric.php',
     'App\\GateEntry' => $baseDir . '/app/GateEntry.php',
     'App\\GreyFabric' => $baseDir . '/app/GreyFabric.php',
+    'App\\Http\\Controllers\\API\\GreyFabricController' => $baseDir . '/app/Http/Controllers/API/GreyFabricController.php',
     'App\\Http\\Controllers\\API\\UserController' => $baseDir . '/app/Http/Controllers/API/UserController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
@@ -18,7 +21,6 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\GateEntryController' => $baseDir . '/app/Http/Controllers/GateEntryController.php',
-    'App\\Http\\Controllers\\GreyFabricController' => $baseDir . '/app/Http/Controllers/GreyFabricController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\YarnStoreController' => $baseDir . '/app/Http/Controllers/YarnStoreController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
