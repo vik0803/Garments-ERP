@@ -4,7 +4,11 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+  <style>
+    .page-break {
+        page-break-after: always;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -37,6 +41,8 @@
         </div>
     </div>
 
+    <div class="page-break"></div>
+
     <div class="row justify-content-center mt-3">
       <div class="card-body">
         <h5 class="card-title text-center">Yarn Store</h5>
@@ -68,6 +74,8 @@
       </div>
     </div>
 
+    <div class="page-break"></div>
+
     <div class="row justify-content-center mt-3">
       <div class="card-body">
         <h5 class="card-title text-center">Grey Fabric Store</h5>
@@ -97,6 +105,8 @@
       </div>
     </div>
 
+    <div class="page-break"></div>
+
     <div class="row justify-content-center mt-3">
       <div class="card-body">
         <h5 class="card-title text-center">Finish Fabric Store</h5>
@@ -121,6 +131,8 @@
         </table>
       </div>
     </div>
+
+    <div class="page-break"></div>
 
     <div class="row justify-content-center mt-3">
       <div class="card-body">
@@ -150,7 +162,6 @@
         </table>
       </div>
     </div>
-
   </div>
 </body>
 </html>
