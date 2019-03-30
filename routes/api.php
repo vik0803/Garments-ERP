@@ -24,5 +24,13 @@ Route::apiResources([
 Route::apiResources([
   'grey-Fabric' => 'API\GreyFabricController'
 ]);
-
 Route::get('findGreyFabric', 'API\GreyFabricController@searchGreyFabric');
+
+Route::apiResources([
+  'dyes-Chemical' => 'API\DyesChemicalController'
+]);
+Route::get('findDyesChemical', 'API\DyesChemicalController@searchDyesChemical');
+
+Route::apiResources([
+  'finish-Fabric' => 'API\FinishFabricController'
+]);

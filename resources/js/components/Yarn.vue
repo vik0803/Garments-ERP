@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <div class="row justify-content-center mt-3">
       <div class="col-12">
         <div class="card" v-if="$gate.isAdmin() || $gate.isYarnStore()">

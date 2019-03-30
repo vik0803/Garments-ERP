@@ -1779,9 +1779,239 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      infos: {},
+      form: {
+        color: '',
+        classification: '',
+        dyes: '',
+        concentration: '',
+        bulk_density: ''
+      },
+      title: '',
+      errors: {},
+      search: '',
+      editmode: false
+    };
+  },
   mounted: function mounted() {
-    console.log('Dyes and chemical Component mounted.');
+    var _this = this;
+
+    var dyesearchit = true;
+
+    if (dyesearchit) {
+      Fire.$on('searchinginfo', function () {
+        var query = _this.search;
+        axios.get('api/findDyesChemical?query=' + query).then(function (response) {
+          _this.infos = response.data.data;
+        }).catch(function () {});
+      }), this.loadInfos();
+      setInterval(function () {
+        return _this.loadInfos();
+      }, 12000);
+    } else {
+      this.loadInfos();
+      setInterval(function () {
+        return _this.loadInfos();
+      }, 3000);
+    }
+  },
+  methods: {
+    loadInfos: function loadInfos() {
+      var _this2 = this;
+
+      axios.get('api/dyes-Chemical').then(function (response) {
+        return _this2.infos = response.data.data;
+      }).catch(function (error) {
+        return _this2.errors = error.response.data.errors;
+      });
+    },
+    dyesearchit: function dyesearchit() {
+      Fire.$emit('searchinginfo');
+    },
+    OpenModal: function OpenModal() {
+      this.form.color = '';
+      this.form.classification = '';
+      this.form.dyes = '';
+      this.form.concentration = '';
+      this.form.bulk_density = '';
+      this.title = 'Add New Dyes Chemical';
+      this.editmode = false;
+      $('#AddNew').modal('show');
+    },
+    createDyesInfo: function createDyesInfo() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      axios.post('api/dyes-Chemical', this.$data.form).then(function (response) {
+        _this3.errors = "";
+
+        _this3.$Progress.finish();
+
+        $('#AddNew').modal('hide');
+        Toast.fire({
+          type: 'success',
+          title: 'Dyes Chemical Info Created in successfully'
+        });
+
+        _this3.loadInfos();
+
+        _this3.form.color = '';
+        _this3.form.classification = '';
+        _this3.form.dyes = '';
+        _this3.form.concentration = '';
+        _this3.form.bulk_density = '';
+        _this3.title = '';
+      }).catch(function (error) {
+        _this3.errors = error.response.data.errors;
+
+        _this3.$Progress.fail();
+      });
+    },
+    updateDyesInfo: function updateDyesInfo() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      axios.patch("api/dyes-Chemical/".concat(this.form.id), this.$data.form).then(function (response) {
+        _this4.errors = "";
+
+        _this4.$Progress.finish();
+
+        $('#AddNew').modal('hide');
+        Toast.fire({
+          type: 'success',
+          title: 'Dyes Chemical Information has been updated'
+        });
+
+        _this4.loadInfos();
+
+        _this4.form.color = '';
+        _this4.form.classification = '';
+        _this4.form.dyes = '';
+        _this4.form.concentration = '';
+        _this4.form.bulk_density = '';
+        _this4.title = '';
+      }).catch(function (error) {
+        _this4.errors = error.response.data.errors;
+
+        _this4.$Progress.fail();
+      });
+    },
+    editModal: function editModal(key) {
+      $('#AddNew').modal('show');
+      this.errors = "";
+      this.editmode = true;
+      this.readonly = false;
+      this.title = 'Edit Dyes Chemical Info';
+      this.form = this.infos[key];
+    },
+    deleteInfo: function deleteInfo(key, id) {
+      var _this5 = this;
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          axios.delete("api/dyes-Chemical/".concat(id));
+          _this5.errors = "";
+          Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+
+          _this5.loadInfos();
+        }
+      });
+    }
   }
 });
 
@@ -1802,8 +2032,200 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {}
+  data: function data() {
+    return {
+      infos: {},
+      form: {
+        classification: '',
+        status: ''
+      },
+      store: true,
+      editmode: false,
+      errors: {}
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.loadInfo();
+    setInterval(function () {
+      return _this.loadInfo();
+    }, 3000);
+  },
+  methods: {
+    loadInfo: function loadInfo() {
+      var _this2 = this;
+
+      axios.get('api/finish-Fabric').then(function (response) {
+        return _this2.infos = response.data.data;
+      }).catch(function (error) {
+        return _this2.errors = error.response.data.errors;
+      });
+    },
+    storeFinsiFabric: function storeFinsiFabric() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      axios.post('api/finish-Fabric', this.$data.form).then(function (response) {
+        _this3.errors = '';
+
+        _this3.$Progress.finish();
+
+        Toast.fire({
+          type: 'success',
+          title: 'Finish Fabric Created in successfully'
+        });
+
+        _this3.loadInfo();
+
+        _this3.form.classification = '';
+        _this3.form.status = '';
+      }).catch(function (error) {
+        _this3.errors = error.response.data.errors;
+
+        _this3.$Progress.fail();
+      });
+    },
+    editModal: function editModal(key) {
+      this.errors = "";
+      this.editmode = true;
+      this.store = false;
+      this.form = this.infos[key];
+    },
+    clear: function clear() {
+      this.errors = "";
+      this.form.classification = '';
+      this.form.status = '';
+      this.editmode = false;
+      this.store = true;
+    },
+    updateFinsiFabric: function updateFinsiFabric() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      axios.patch("api/finish-Fabric/".concat(this.form.id), this.$data.form).then(function (response) {
+        _this4.errors = "";
+
+        _this4.$Progress.finish();
+
+        Toast.fire({
+          type: 'success',
+          title: 'Finish Fabric Information has been updated'
+        });
+
+        _this4.loadInfo();
+
+        _this4.form.classification = '';
+        _this4.form.status = '';
+        _this4.editmode = false;
+        _this4.store = true;
+      }).catch(function (error) {
+        _this4.errors = error.response.data.errors;
+
+        _this4.$Progress.fail();
+      });
+    },
+    deleteEntry: function deleteEntry(key, id) {
+      var _this5 = this;
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          axios.delete("api/finish-Fabric/".concat(id));
+          _this5.errors = "";
+          Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+
+          _this5.loadInfo();
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -1968,7 +2390,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     clear: function clear() {
       this.errors = "";
-      this.form = '';
+      this.form.category = '';
+      this.form.gateIn = '';
+      this.form.gateOut = '';
+      this.form.gatePass = '';
+      this.editmode = false;
+      this.store = true;
     },
     updateEntry: function updateEntry() {
       var _this4 = this;
@@ -2620,7 +3047,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -58204,7 +58630,434 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.$gate.isAdmin() || _vm.$gate.isDyesAndChemical()
-    ? _c("div", { staticClass: "container" }, [_vm._m(0)])
+    ? _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row justify-content-center mt-3" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c("h3", { staticClass: "card-title text-center" }, [
+                  _vm._v("Dyes and Chemical Store")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success col-md-3",
+                      attrs: { type: "button" },
+                      on: { click: _vm.OpenModal }
+                    },
+                    [
+                      _vm._v(" Add Dyes Chemical "),
+                      _c("i", { staticClass: "far fa-object-group " }),
+                      _c("i", { staticClass: "fas fa-plus-circle" })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-5" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-inline col-md-4 " }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.search,
+                          expression: "search"
+                        }
+                      ],
+                      staticClass: " searchbox",
+                      attrs: {
+                        type: "search",
+                        placeholder: "Search",
+                        "aria-label": "Search"
+                      },
+                      domProps: { value: _vm.search },
+                      on: {
+                        keyup: _vm.dyesearchit,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.search = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info sboxbtn",
+                        on: { click: _vm.dyesearchit }
+                      },
+                      [_c("i", { staticClass: "fas fa-search white" })]
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body table-responsive p-0" }, [
+                _c("table", { staticClass: "table table-hover" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.infos, function(info, key) {
+                      return _c("tr", [
+                        _c("td", [_vm._v(_vm._s(info.id))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.color))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.classification))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.dyes))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.concentration))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(info.bulk_density))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editModal(key)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-edit blue" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-danger",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteInfo(key, info.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-trash red" })]
+                          )
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "AddNew",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "exampleModalLabel",
+              "aria-hidden": "true"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c(
+                      "h5",
+                      {
+                        staticClass: "modal-title",
+                        attrs: { id: "exampleModalLabel" }
+                      },
+                      [_vm._v(_vm._s(_vm.title))]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(1)
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          _vm.editmode
+                            ? _vm.updateDyesInfo()
+                            : _vm.createDyesInfo()
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-body" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.color,
+                                  expression: "form.color"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: { "is-invalid": _vm.errors.color },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "color",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Select Color")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "Whale" } }, [
+                                _vm._v("Whale")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "Medi-blue" } }, [
+                                _vm._v("Medi-Blue")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "Fawn" } }, [
+                                _vm._v("Fawn")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.errors.color
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(_vm._s(_vm.errors.color[0]))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.classification,
+                                expression: "form.classification"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: { "is-invalid": _vm.errors.classification },
+                            attrs: {
+                              type: "text",
+                              placeholder: "Classification"
+                            },
+                            domProps: { value: _vm.form.classification },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "classification",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.classification
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(_vm._s(_vm.errors.classification[0]))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.dyes,
+                                expression: "form.dyes"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: { "is-invalid": _vm.errors.dyes },
+                            attrs: { placeholder: "Dyes", rows: "3" },
+                            domProps: { value: _vm.form.dyes },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "dyes", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.dyes
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(_vm._s(_vm.errors.dyes[0]))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.concentration,
+                                expression: "form.concentration"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: { "is-invalid": _vm.errors.concentration },
+                            attrs: {
+                              type: "text",
+                              placeholder: "Concentration"
+                            },
+                            domProps: { value: _vm.form.concentration },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "concentration",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.concentration
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(_vm._s(_vm.errors.concentration[0]))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.bulk_density,
+                                expression: "form.bulk_density"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: { "is-invalid": _vm.errors.bulk_density },
+                            attrs: {
+                              type: "text",
+                              placeholder: "Bulk Density"
+                            },
+                            domProps: { value: _vm.form.bulk_density },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "bulk_density",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.bulk_density
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(_vm._s(_vm.errors.bulk_density[0]))
+                              ])
+                            : _vm._e()
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            attrs: { type: "button", "data-dismiss": "modal" }
+                          },
+                          [_vm._v("Close")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editmode,
+                                expression: "!editmode"
+                              }
+                            ],
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit" }
+                          },
+                          [_vm._v("Create")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editmode,
+                                expression: "editmode"
+                              }
+                            ],
+                            staticClass: "btn btn-success",
+                            attrs: { type: "submit" }
+                          },
+                          [_vm._v("Update")]
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ]
+            )
+          ]
+        )
+      ])
     : _vm._e()
 }
 var staticRenderFns = [
@@ -58212,21 +59065,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("Dyes and chemical Component")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _vm._v(
-              "\n                    I'm an Dyes and chemical component.\n                "
-            )
-          ])
-        ])
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Color")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Classification")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Dyes")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Concentration(%)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Bulk Density(kg/m3)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Modify")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true
@@ -58771,10 +59643,344 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.$gate.isAdmin() || _vm.$gate.isFinishFabric()
-    ? _c("div", { staticClass: "container" })
+    ? _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row justify-content-center mt-3" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "card text-white mb-3",
+                  staticStyle: { "background-color": "cadetblue" }
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "form-row" }, [
+                      _c("div", { staticClass: "form-group col-md-3" }, [
+                        _c("label", { attrs: { for: "classification" } }, [
+                          _vm._v("Classification of Finish")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.classification,
+                                expression: "form.classification"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: { "is-invalid": _vm.errors.classification },
+                            attrs: { id: "classification" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "classification",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Choose...")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "Pre–Shrinking" } },
+                              [_vm._v("Pre–Shrinking")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Softening" } }, [
+                              _vm._v("Softening")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "Brush and Sanding" } },
+                              [_vm._v("Brush and Sanding")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "Mercerizing and Singeing" } },
+                              [_vm._v("Mercerizing and Singeing")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Resin" } }, [
+                              _vm._v("Resin")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "Permanent Press" } },
+                              [_vm._v("Permanent Press")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Skewing" } }, [
+                              _vm._v("Skewing")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Chintz" } }, [
+                              _vm._v("Chintz")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "Water Repellent" } },
+                              [_vm._v("Water Repellent")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Water Proof" } }, [
+                              _vm._v("Water Proof")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Peach Skin" } }, [
+                              _vm._v("Peach Skin")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Soil Release" } }, [
+                              _vm._v("Soil Release")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "option",
+                              { attrs: { value: "Fire Retardant" } },
+                              [_vm._v("Fire Retardant")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.errors.classification
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.classification[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-2" }, [
+                        _c("label", { attrs: { for: "status" } }, [
+                          _vm._v("Status")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.status,
+                                expression: "form.status"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: { "is-invalid": _vm.errors.status },
+                            attrs: { id: "status" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "status",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Choose...")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "In Process" } }, [
+                              _vm._v("In Process")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "On Hold" } }, [
+                              _vm._v("On Hold")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Complete" } }, [
+                              _vm._v("Complete")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Not Started" } }, [
+                              _vm._v("Not Started")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.errors.status
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.status[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-3" }, [
+                        _vm.store
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-dark btn-lg btn-block",
+                                staticStyle: { "margin-top": "27px" },
+                                attrs: { type: "submit" },
+                                on: { click: _vm.storeFinsiFabric }
+                              },
+                              [_vm._v("Finish Fabric")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.editmode
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-dark btn-lg",
+                                staticStyle: { "margin-top": "27px" },
+                                attrs: { type: "submit" },
+                                on: { click: _vm.updateFinsiFabric }
+                              },
+                              [_vm._v("Update Finish")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.editmode
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary btn-lg",
+                                staticStyle: { "margin-top": "27px" },
+                                attrs: { type: "submit" },
+                                on: { click: _vm.clear }
+                              },
+                              [_vm._v("Clear")]
+                            )
+                          : _vm._e()
+                      ])
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body table-responsive p-0" }, [
+                _c("table", { staticClass: "table table-hover" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.infos, function(info, key) {
+                      return _c("tr", [
+                        _c("td", [_vm._v(_vm._s(info.id))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm._f("upText")(info.classification)))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm._f("upText")(info.status)))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm._f("mlDate")(info.created_at)))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editModal(key)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-edit blue" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-danger",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteEntry(key, info.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-trash red" })]
+                          )
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
     : _vm._e()
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title text-center" }, [
+        _vm._v("Finish Fabric Store")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Classification")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Created At")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Modify")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

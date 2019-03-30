@@ -137,9 +137,15 @@
             this.store=false;
             this.form=this.infos[key];
           },
+
           clear(){
             this.errors= "";
-            this.form='';
+            this.form.category='';
+            this.form.gateIn='';
+            this.form.gateOut='';
+            this.form.gatePass='';
+            this.editmode=false;
+            this.store=true;
           },
 
           updateEntry(){
