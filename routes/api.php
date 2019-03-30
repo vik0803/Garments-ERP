@@ -20,3 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResources([
   'user'=>'API\UserController'
 ]);
+
+Route::apiResources([
+  'grey-Fabric' => 'API\GreyFabricController'
+]);
+
+Route::get('findGreyFabric', 'API\GreyFabricController@searchGreyFabric');

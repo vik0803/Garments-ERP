@@ -483,6 +483,7 @@ class ComposerStaticInitda7eb674ca4edf64dadae520b8ac08fb
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\GateEntryController' => __DIR__ . '/../..' . '/app/Http/Controllers/GateEntryController.php',
+        'App\\Http\\Controllers\\GreyFabricController' => __DIR__ . '/../..' . '/app/Http/Controllers/GreyFabricController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\YarnStoreController' => __DIR__ . '/../..' . '/app/Http/Controllers/YarnStoreController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

@@ -1802,20 +1802,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Finish Fabric Store  Component mounted.');
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -2167,19 +2155,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       infos: {},
       form: {
-        content: '',
+        fabric_content: '',
         material: '',
         quantity: '',
         width: '',
@@ -2187,24 +2168,26 @@ __webpack_require__.r(__webpack_exports__);
         finish: '',
         transparency: '',
         fire_rating: '',
-        use: '',
+        useinfo: '',
         care: ''
       },
       title: '',
       errors: {},
       search: '',
-      editmode: false
+      editmode: false,
+      readonly: false,
+      viewmode: false
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    var searchit = true;
+    var infosearchit = true;
 
-    if (searchit) {
-      Fire.$on('searching', function () {
+    if (infosearchit) {
+      Fire.$on('searchinginfo', function () {
         var query = _this.search;
-        axios.get('/findGreyFabric?query=' + query).then(function (response) {
+        axios.get('api/findGreyFabric?query=' + query).then(function (response) {
           _this.infos = response.data.data;
         }).catch(function () {});
       }), this.loadInfos();
@@ -2222,17 +2205,17 @@ __webpack_require__.r(__webpack_exports__);
     loadInfos: function loadInfos() {
       var _this2 = this;
 
-      axios.get('getGreyFabric').then(function (response) {
+      axios.get('api/grey-Fabric').then(function (response) {
         return _this2.infos = response.data.data;
       }).catch(function (error) {
         return _this2.errors = error.response.data.errors;
       });
     },
-    searchit: function searchit() {
-      Fire.$emit('searching');
+    infosearchit: function infosearchit() {
+      Fire.$emit('searchinginfo');
     },
     OpenModal: function OpenModal() {
-      this.form.content = '';
+      this.form.fabric_content = '';
       this.form.material = '';
       this.form.quantity = '';
       this.form.width = '';
@@ -2240,29 +2223,20 @@ __webpack_require__.r(__webpack_exports__);
       this.form.finish = '';
       this.form.transparency = '';
       this.form.fire_rating = '';
-      this.form.use = '';
+      this.form.useinfo = '';
       this.form.care = '';
       this.title = 'Add New Grey Fabric';
       this.editmode = false;
+      this.readonly = false;
+      this.viewmode = false;
       $('#AddNew').modal('show');
     },
     createInfo: function createInfo() {
       var _this3 = this;
 
       this.$Progress.start();
-      axios.post('grey-Fabric', this.$data.form).then(function (response) {
+      axios.post('api/grey-Fabric', this.$data.form).then(function (response) {
         _this3.errors = "";
-        _this3.form.content = '';
-        _this3.form.material = '';
-        _this3.form.quantity = '';
-        _this3.form.width = '';
-        _this3.form.weight = '';
-        _this3.form.finish = '';
-        _this3.form.transparency = '';
-        _this3.form.fire_rating = '';
-        _this3.form.use = '';
-        _this3.form.care = '';
-        _this3.title = '';
 
         _this3.$Progress.finish();
 
@@ -2273,6 +2247,18 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         _this3.loadInfos();
+
+        _this3.form.fabric_content = '';
+        _this3.form.material = '';
+        _this3.form.quantity = '';
+        _this3.form.width = '';
+        _this3.form.weight = '';
+        _this3.form.finish = '';
+        _this3.form.transparency = '';
+        _this3.form.fire_rating = '';
+        _this3.form.useinfo = '';
+        _this3.form.care = '';
+        _this3.title = '';
       }).catch(function (error) {
         _this3.errors = error.response.data.errors;
 
@@ -2283,7 +2269,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.$Progress.start();
-      axios.patch("grey-Fabric/".concat(this.form.id), this.$data.form).then(function (response) {
+      axios.patch("api/grey-Fabric/".concat(this.form.id), this.$data.form).then(function (response) {
         _this4.errors = "";
 
         _this4.$Progress.finish();
@@ -2296,7 +2282,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this4.loadInfos();
 
-        _this4.form.content = '';
+        _this4.form.fabric_content = '';
         _this4.form.material = '';
         _this4.form.quantity = '';
         _this4.form.width = '';
@@ -2304,7 +2290,7 @@ __webpack_require__.r(__webpack_exports__);
         _this4.form.finish = '';
         _this4.form.transparency = '';
         _this4.form.fire_rating = '';
-        _this4.form.use = '';
+        _this4.form.useinfo = '';
         _this4.form.care = '';
         _this4.title = '';
       }).catch(function (error) {
@@ -2317,13 +2303,16 @@ __webpack_require__.r(__webpack_exports__);
       $('#AddNew').modal('show');
       this.errors = "";
       this.editmode = true;
-      this.title = 'Update Grey Fabric Info';
+      this.readonly = false;
+      this.title = 'Edit Grey Fabric Info';
       this.form = this.infos[key];
     },
-    viewModal: function viewModal(key, id) {
+    viewModal: function viewModal(key) {
       $('#AddNew').modal('show');
       this.errors = "";
       this.editmode = false;
+      this.readonly = true;
+      this.viewmode = true;
       this.title = 'View Grey Fabric Info';
       this.form = this.infos[key];
     },
@@ -2340,7 +2329,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
         if (result.value) {
-          axios.delete("grey-Fabric/".concat(id));
+          axios.delete("api/grey-Fabric/".concat(id));
           _this5.errors = "";
           Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
 
@@ -58782,31 +58771,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.$gate.isAdmin() || _vm.$gate.isFinishFabric()
-    ? _c("div", { staticClass: "container" }, [_vm._m(0)])
+    ? _c("div", { staticClass: "container" })
     : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v(" Finish Fabric Store Component")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _vm._v(
-              "\n                    I'm an Finish Fabric Store  component.\n                "
-            )
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -59194,11 +59162,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.$gate.isAdmin() || _vm.$gate.isGreyFabric()
-    ? _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row justify-content-center mt-3" }, [
-          _c("div", { staticClass: "col-12" }, [
-            _c("div", { staticClass: "card" }, [
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center mt-3" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _vm.$gate.isAdmin() || _vm.$gate.isGreyFabric()
+          ? _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header" }, [
                 _c("h3", { staticClass: "card-title text-center" }, [
                   _vm._v("Grey Fabric Store")
@@ -59240,7 +59208,7 @@ var render = function() {
                       },
                       domProps: { value: _vm.search },
                       on: {
-                        keyup: _vm.searchit,
+                        keyup: _vm.infosearchit,
                         input: function($event) {
                           if ($event.target.composing) {
                             return
@@ -59254,7 +59222,7 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-info sboxbtn",
-                        on: { click: _vm.searchit }
+                        on: { click: _vm.infosearchit }
                       },
                       [_c("i", { staticClass: "fas fa-search white" })]
                     )
@@ -59272,7 +59240,7 @@ var render = function() {
                       return _c("tr", [
                         _c("td", [_vm._v(_vm._s(info.id))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(info.content))]),
+                        _c("td", [_vm._v(_vm._s(info.fabric_content))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(info.quantity))]),
                         _vm._v(" "),
@@ -59281,11 +59249,7 @@ var render = function() {
                         _c("td", [_vm._v(_vm._s(info.care))]),
                         _vm._v(" "),
                         _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("mlDate")(_vm._f("")(info.created_at))
-                            )
-                          )
+                          _vm._v(_vm._s(_vm._f("mlDate")(info.created_at)))
                         ]),
                         _vm._v(" "),
                         _c("td", [
@@ -59295,11 +59259,11 @@ var render = function() {
                               attrs: { href: "#" },
                               on: {
                                 click: function($event) {
-                                  return _vm.viewModal(key, info.id)
+                                  return _vm.viewModal(key)
                                 }
                               }
                             },
-                            [_c("i", { staticClass: "fas fa-view info" })]
+                            [_c("i", { staticClass: "fas fa-eye green" })]
                           ),
                           _vm._v(" "),
                           _c(
@@ -59336,483 +59300,475 @@ var render = function() {
                 ])
               ])
             ])
-          ])
-        ]),
-        _vm._v(" "),
+          : _vm._e()
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "AddNew",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "ModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
         _c(
           "div",
-          {
-            staticClass: "modal fade",
-            attrs: {
-              id: "AddNew",
-              tabindex: "-1",
-              role: "dialog",
-              "aria-labelledby": "ModalLabel",
-              "aria-hidden": "true"
-            }
-          },
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
-            _c(
-              "div",
-              { staticClass: "modal-dialog", attrs: { role: "document" } },
-              [
-                _c("div", { staticClass: "modal-content " }, [
-                  _c("div", { staticClass: "modal-header" }, [
-                    _c(
-                      "h5",
-                      {
-                        staticClass: "modal-title",
-                        attrs: { id: "ModalLabel" }
-                      },
-                      [_vm._v(_vm._s(_vm.title))]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(1)
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "form",
-                    {
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          _vm.editmode ? _vm.updateInfo() : _vm.createInfo()
+            _c("div", { staticClass: "modal-content " }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  { staticClass: "modal-title", attrs: { id: "ModalLabel" } },
+                  [_vm._v(_vm._s(_vm.title))]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editmode ? _vm.updateInfo() : _vm.createInfo()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.fabric_content,
+                            expression: "form.fabric_content"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors.fabric_content },
+                        attrs: {
+                          type: "text",
+                          readonly: _vm.readonly,
+                          placeholder: "Fiber Content"
+                        },
+                        domProps: { value: _vm.form.fabric_content },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "fabric_content",
+                              $event.target.value
+                            )
+                          }
                         }
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "modal-body" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.content,
-                                expression: "form.content"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: { "is-invalid": _vm.errors.content },
-                            attrs: { type: "text", placeholder: "Content" },
-                            domProps: { value: _vm.form.content },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "content",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.content
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                _vm._v(_vm._s(_vm.errors.content[0]))
-                              ])
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.material,
-                                expression: "form.material"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: { "is-invalid": _vm.errors.material },
-                            attrs: { type: "text", placeholder: "Material" },
-                            domProps: { value: _vm.form.material },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "material",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.material
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                _vm._v(_vm._s(_vm.errors.material[0]))
-                              ])
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("div", { staticClass: "form-row" }, [
-                            _c("div", { staticClass: "col" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.quantity,
-                                    expression: "form.quantity"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                class: { "is-invalid": _vm.errors.quantity },
-                                attrs: {
-                                  type: "number",
-                                  placeholder: "Quantity"
-                                },
-                                domProps: { value: _vm.form.quantity },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "quantity",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm.errors.quantity
-                                ? _c(
-                                    "div",
-                                    { staticClass: "invalid-feedback" },
-                                    [_vm._v(_vm._s(_vm.errors.quantity[0]))]
-                                  )
-                                : _vm._e()
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.width,
-                                    expression: "form.width"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                class: { "is-invalid": _vm.errors.width },
-                                attrs: { type: "text", placeholder: "Width" },
-                                domProps: { value: _vm.form.width },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "width",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm.errors.width
-                                ? _c(
-                                    "div",
-                                    { staticClass: "invalid-feedback" },
-                                    [_vm._v(_vm._s(_vm.errors.width[0]))]
-                                  )
-                                : _vm._e()
-                            ])
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.fabric_content
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(_vm._s(_vm.errors.fabric_content[0]))
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("div", { staticClass: "form-row" }, [
-                            _c("div", { staticClass: "col" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.weight,
-                                    expression: "form.weight"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                class: { "is-invalid": _vm.errors.weight },
-                                attrs: { type: "text", placeholder: "Weight" },
-                                domProps: { value: _vm.form.weight },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "weight",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm.errors.weight
-                                ? _c(
-                                    "div",
-                                    { staticClass: "invalid-feedback" },
-                                    [_vm._v(_vm._s(_vm.errors.weight[0]))]
-                                  )
-                                : _vm._e()
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.finish,
-                                    expression: "form.finish"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                class: { "is-invalid": _vm.errors.finish },
-                                attrs: { type: "text", placeholder: "Finish" },
-                                domProps: { value: _vm.form.finish },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "finish",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm.errors.finish
-                                ? _c(
-                                    "div",
-                                    { staticClass: "invalid-feedback" },
-                                    [_vm._v(_vm._s(_vm.errors.finish[0]))]
-                                  )
-                                : _vm._e()
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("div", { staticClass: "form-row" }, [
-                            _c("div", { staticClass: "col" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.transparency,
-                                    expression: "form.transparency"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                class: {
-                                  "is-invalid": _vm.errors.transparency
-                                },
-                                attrs: {
-                                  type: "text",
-                                  placeholder: "Transparency"
-                                },
-                                domProps: { value: _vm.form.transparency },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "transparency",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm.errors.transparency
-                                ? _c(
-                                    "div",
-                                    { staticClass: "invalid-feedback" },
-                                    [_vm._v(_vm._s(_vm.errors.transparency[0]))]
-                                  )
-                                : _vm._e()
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.fire_rating,
-                                    expression: "form.fire_rating"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                class: { "is-invalid": _vm.errors.fire_rating },
-                                attrs: {
-                                  type: "text",
-                                  placeholder: "Fire Rating"
-                                },
-                                domProps: { value: _vm.form.fire_rating },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "fire_rating",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm.errors.fire_rating
-                                ? _c(
-                                    "div",
-                                    { staticClass: "invalid-feedback" },
-                                    [_vm._v(_vm._s(_vm.errors.fire_rating[0]))]
-                                  )
-                                : _vm._e()
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.use,
-                                expression: "form.use"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: { "is-invalid": _vm.errors.use },
-                            attrs: { placeholder: "Use", rows: "3" },
-                            domProps: { value: _vm.form.use },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(_vm.form, "use", $event.target.value)
-                              }
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.material,
+                            expression: "form.material"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors.material },
+                        attrs: {
+                          type: "text",
+                          readonly: _vm.readonly,
+                          placeholder: "Material"
+                        },
+                        domProps: { value: _vm.form.material },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
                             }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.use
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                _vm._v(_vm._s(_vm.errors.use[0]))
-                              ])
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.care,
-                                expression: "form.care"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: { "is-invalid": _vm.errors.care },
-                            attrs: { type: "text", placeholder: "Care" },
-                            domProps: { value: _vm.form.care },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(_vm.form, "care", $event.target.value)
-                              }
+                            _vm.$set(_vm.form, "material", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.material
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(_vm._s(_vm.errors.material[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-row mb-2" }, [
+                      _c("div", { staticClass: "col" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.quantity,
+                              expression: "form.quantity"
                             }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.care
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                _vm._v(_vm._s(_vm.errors.care[0]))
-                              ])
-                            : _vm._e()
-                        ])
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors.quantity },
+                          attrs: {
+                            type: "number",
+                            readonly: _vm.readonly,
+                            placeholder: "Quantity"
+                          },
+                          domProps: { value: _vm.form.quantity },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "quantity",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.quantity
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.quantity[0]))
+                            ])
+                          : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "modal-footer" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            attrs: { type: "button", "data-dismiss": "modal" }
+                      _c("div", { staticClass: "col" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.width,
+                              expression: "form.width"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors.width },
+                          attrs: {
+                            type: "text",
+                            readonly: _vm.readonly,
+                            placeholder: "Width"
                           },
-                          [_vm._v("Close")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: !_vm.editmode,
-                                expression: "!editmode"
+                          domProps: { value: _vm.form.width },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
-                            ],
-                            staticClass: "btn btn-primary",
-                            attrs: { type: "submit" }
-                          },
-                          [_vm._v("Create")]
-                        ),
+                              _vm.$set(_vm.form, "width", $event.target.value)
+                            }
+                          }
+                        }),
                         _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.editmode,
-                                expression: "editmode"
-                              }
-                            ],
-                            staticClass: "btn btn-success",
-                            attrs: { type: "submit" }
-                          },
-                          [_vm._v("Update")]
-                        )
+                        _vm.errors.width
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.width[0]))
+                            ])
+                          : _vm._e()
                       ])
-                    ]
-                  )
-                ])
-              ]
-            )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-row mb-2" }, [
+                      _c("div", { staticClass: "col" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.weight,
+                              expression: "form.weight"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors.weight },
+                          attrs: {
+                            type: "text",
+                            readonly: _vm.readonly,
+                            placeholder: "Weight"
+                          },
+                          domProps: { value: _vm.form.weight },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "weight", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.weight
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.weight[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.finish,
+                              expression: "form.finish"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors.finish },
+                          attrs: {
+                            type: "text",
+                            readonly: _vm.readonly,
+                            placeholder: "Finish"
+                          },
+                          domProps: { value: _vm.form.finish },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "finish", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.finish
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.finish[0]))
+                            ])
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-row mb-2" }, [
+                      _c("div", { staticClass: "col" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.transparency,
+                              expression: "form.transparency"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors.transparency },
+                          attrs: {
+                            type: "text",
+                            readonly: _vm.readonly,
+                            placeholder: "Transparency"
+                          },
+                          domProps: { value: _vm.form.transparency },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "transparency",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.transparency
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.transparency[0]))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.fire_rating,
+                              expression: "form.fire_rating"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors.fire_rating },
+                          attrs: {
+                            type: "text",
+                            readonly: _vm.readonly,
+                            placeholder: "Fire Rating"
+                          },
+                          domProps: { value: _vm.form.fire_rating },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "fire_rating",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.fire_rating
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _vm._v(_vm._s(_vm.errors.fire_rating[0]))
+                            ])
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.useinfo,
+                            expression: "form.useinfo"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors.useinfo },
+                        attrs: {
+                          readonly: _vm.readonly,
+                          placeholder: "Useinfo",
+                          rows: "3"
+                        },
+                        domProps: { value: _vm.form.useinfo },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "useinfo", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.useinfo
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(_vm._s(_vm.errors.useinfo[0]))
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.care,
+                            expression: "form.care"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors.care },
+                        attrs: {
+                          type: "text",
+                          readonly: _vm.readonly,
+                          placeholder: "Care"
+                        },
+                        domProps: { value: _vm.form.care },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "care", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.care
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _vm._v(_vm._s(_vm.errors.care[0]))
+                          ])
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editmode && !_vm.viewmode,
+                            expression: "!editmode && !viewmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Create")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Update")]
+                    )
+                  ])
+                ]
+              )
+            ])
           ]
         )
-      ])
-    : _vm._e()
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {

@@ -15,15 +15,15 @@ class CreateGreyFabricsTable extends Migration
     {
         Schema::create('grey_fabrics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('content');
+            $table->string('fabric_content');
             $table->string('material');
-            $table->string('quantity');
-            $table->float('width', 8,4);
+            $table->integer('quantity');
+            $table->string('width');
             $table->string('weight');
             $table->string('finish')->nullable();
             $table->string('transparency')->nullable();
             $table->string('fire_rating')->nullable();
-            $table->text('use');
+            $table->text('useinfo');
             $table->string('care');
             $table->timestamps();
         });

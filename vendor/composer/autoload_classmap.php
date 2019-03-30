@@ -18,6 +18,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\GateEntryController' => $baseDir . '/app/Http/Controllers/GateEntryController.php',
+    'App\\Http\\Controllers\\GreyFabricController' => $baseDir . '/app/Http/Controllers/GreyFabricController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\YarnStoreController' => $baseDir . '/app/Http/Controllers/YarnStoreController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
